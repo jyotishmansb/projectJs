@@ -743,3 +743,63 @@ export const mathMethods = {
         { name: 'Math.E',         ex: 'Math.E',              res: '2.71828…' },
     ],
 };
+
+// ── Variable Declaration Section Data ────────────────────
+
+export const varPanels = {
+    var: {
+        title: 'var — The Old Way',
+        desc: 'The original variable keyword from 1995. <strong>Function-scoped</strong> and <strong>hoisted</strong> to the top of its function. Avoid in modern JS — its behaviour causes bugs.',
+        bullets: [
+            '<code>var</code> is function-scoped, NOT block-scoped',
+            'Declarations are hoisted — the variable exists before its line',
+            'Can be re-declared and re-assigned freely',
+            'Leaks out of <code>if</code>, <code>for</code>, and other blocks'
+        ],
+        code: `<span class="cm">// var is FUNCTION-scoped, not block-scoped</span>\n<span class="kw">function</span> <span class="fn">demo</span>() {\n  <span class="kw">if</span> (<span class="kw">true</span>) {\n    <span class="kw">var</span> x = <span class="val">10</span>; <span class="cm">// leaks out of the if block!</span>\n  }\n  <span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 10 — still accessible! 😱</span>\n}\n\n<span class="cm">// Hoisting — var is hoisted as undefined</span>\n<span class="fn">console</span>.<span class="fn">log</span>(y); <span class="cm">// undefined (not an error!)</span>\n<span class="kw">var</span> y = <span class="val">5</span>;\n\n<span class="cm">// Re-declaration is allowed (confusing!)</span>\n<span class="kw">var</span> name = <span class="str">"Alice"</span>;\n<span class="kw">var</span> name = <span class="str">"Bob"</span>; <span class="cm">// No error ❌</span>`
+    },
+    let: {
+        title: 'let — The Modern Variable',
+        desc: 'Introduced in ES6 (2015). <strong>Block-scoped</strong> — it exists only within the <code>{ }</code> it is declared in. Cannot be re-declared. The preferred choice for variables that change.',
+        bullets: [
+            '<code>let</code> is block-scoped — lives inside <code>{ }</code> only',
+            'Hoisted but NOT initialised — accessing before declaration causes a <strong>ReferenceError</strong> (Temporal Dead Zone)',
+            'Can be re-assigned, but NOT re-declared in the same scope',
+            'Great for loop counters and values that will change'
+        ],
+        code: `<span class="cm">// Block scope — stays inside { }</span>\n<span class="kw">if</span> (<span class="kw">true</span>) {\n  <span class="kw">let</span> score = <span class="val">100</span>;\n  <span class="fn">console</span>.<span class="fn">log</span>(score); <span class="cm">// 100 ✅</span>\n}\n<span class="cm">// console.log(score); ❌ ReferenceError</span>\n\n<span class="cm">// Re-assign is fine</span>\n<span class="kw">let</span> count = <span class="val">0</span>;\ncount = <span class="val">1</span>; <span class="cm">// ✅ allowed</span>\n\n<span class="cm">// Re-declare is NOT allowed</span>\n<span class="cm">// let count = 5; ❌ SyntaxError</span>\n\n<span class="cm">// TDZ — Temporal Dead Zone</span>\n<span class="cm">// console.log(a); ❌ ReferenceError</span>\n<span class="kw">let</span> a = <span class="val">42</span>;`
+    },
+    const: {
+        title: 'const — Constant Binding',
+        desc: 'Also block-scoped like <code>let</code>. The variable <strong>binding</strong> cannot be re-assigned after declaration. Note: objects and arrays declared with <code>const</code> can still have their <em>contents</em> mutated.',
+        bullets: [
+            'Must be initialised at declaration — cannot be left empty',
+            'Re-assignment throws a <strong>TypeError</strong>',
+            '<strong>Objects &amp; Arrays</strong> declared with <code>const</code> are still mutable — the reference is locked, not the content',
+            'Use <code>const</code> by default; only switch to <code>let</code> when you need to reassign'
+        ],
+        code: `<span class="cm">// Must initialise immediately</span>\n<span class="kw">const</span> PI = <span class="val">3.14159</span>;\n\n<span class="cm">// Re-assignment throws TypeError</span>\n<span class="cm">// PI = 3; ❌ TypeError</span>\n\n<span class="cm">// Objects are STILL mutable</span>\n<span class="kw">const</span> user = { name: <span class="str">"Alice"</span> };\nuser.name = <span class="str">"Bob"</span>; <span class="cm">// ✅ OK — mutating contents</span>\n<span class="cm">// user = {}; ❌ TypeError — rebinding blocked</span>\n\n<span class="cm">// Arrays too</span>\n<span class="kw">const</span> nums = [<span class="val">1</span>, <span class="val">2</span>, <span class="val">3</span>];\nnums.<span class="fn">push</span>(<span class="val">4</span>); <span class="cm">// ✅ OK</span>\n<span class="cm">// nums = []; ❌ TypeError</span>`
+    },
+    compare: {
+        title: 'var vs let vs const',
+        desc: 'A side-by-side comparison of all three keywords. The modern rule is simple: <strong>use <code>const</code> by default, <code>let</code> when you need to reassign, and avoid <code>var</code> entirely.</strong>',
+        bullets: [
+            '<strong>Scope:</strong> <code>var</code> → function &nbsp; <code>let</code>/<code>const</code> → block',
+            '<strong>Hoisting:</strong> <code>var</code> → hoisted as <code>undefined</code> &nbsp; <code>let</code>/<code>const</code> → TDZ (error if accessed early)',
+            '<strong>Re-declare:</strong> <code>var</code> → ✅ allowed &nbsp; <code>let</code>/<code>const</code> → ❌ SyntaxError',
+            '<strong>Re-assign:</strong> <code>var</code>/<code>let</code> → ✅ allowed &nbsp; <code>const</code> → ❌ TypeError'
+        ],
+        code: `<span class="cm">// ─── SCOPE ───────────────────────────</span>\n{\n  <span class="kw">var</span>   x = <span class="val">1</span>; <span class="cm">// leaks out of block!</span>\n  <span class="kw">let</span>   y = <span class="val">2</span>; <span class="cm">// block-scoped ✅</span>\n  <span class="kw">const</span> z = <span class="val">3</span>; <span class="cm">// block-scoped ✅</span>\n}\n<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 1 (leaked!)</span>\n<span class="cm">// y and z → ReferenceError ✅</span>\n\n<span class="cm">// ─── HOISTING ─────────────────────────</span>\n<span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined (var)</span>\n<span class="cm">// console.log(b); ❌ TDZ Error (let)</span>\n<span class="kw">var</span>   a = <span class="val">10</span>;\n<span class="kw">let</span>   b = <span class="val">20</span>;\n<span class="kw">const</span> c = <span class="val">30</span>;`
+    },
+    scope: {
+        title: 'Scope Deep Dive',
+        desc: '<strong>Scope</strong> is the region of code where a variable is accessible. JS has three main scopes: <strong>global</strong>, <strong>function</strong>, and <strong>block</strong>. Understanding scope prevents accidental variable leaks and naming conflicts.',
+        bullets: [
+            '<strong>Global scope</strong> — declared outside any function/block; accessible everywhere',
+            '<strong>Function scope</strong> — <code>var</code>, <code>let</code>, <code>const</code> inside a function are local to it',
+            '<strong>Block scope</strong> — <code>let</code>/<code>const</code> inside <code>{ }</code> are confined to that block',
+            '<strong>Lexical scope</strong> — inner functions can access outer variables (closures!)'
+        ],
+        code: `<span class="kw">const</span> global = <span class="str">"I am global"</span>; <span class="cm">// global scope</span>\n\n<span class="kw">function</span> <span class="fn">outer</span>() {\n  <span class="kw">const</span> outerVar = <span class="str">"outer"</span>;\n\n  <span class="kw">function</span> <span class="fn">inner</span>() {\n    <span class="kw">const</span> innerVar = <span class="str">"inner"</span>;\n    <span class="fn">console</span>.<span class="fn">log</span>(global);   <span class="cm">// ✅ global</span>\n    <span class="fn">console</span>.<span class="fn">log</span>(outerVar); <span class="cm">// ✅ lexical</span>\n    <span class="fn">console</span>.<span class="fn">log</span>(innerVar); <span class="cm">// ✅ local</span>\n  }\n\n  <span class="fn">inner</span>();\n  <span class="cm">// innerVar not accessible here ❌</span>\n}\n\n<span class="cm">// Block scope with let/const</span>\n<span class="kw">for</span> (<span class="kw">let</span> i = <span class="val">0</span>; i < <span class="val">3</span>; i++) {\n  <span class="cm">// i is scoped to the loop only</span>\n}\n<span class="cm">// console.log(i); ❌ ReferenceError</span>`
+    }
+};

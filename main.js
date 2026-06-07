@@ -1,4 +1,4 @@
-import { typeData, fnPanels, condPanels, loopPanels, opPanels, opRefCards, mathPanels, mathMethods, mathConstants } from './data.js';
+import { typeData, fnPanels, condPanels, loopPanels, opPanels, opRefCards, mathPanels, mathMethods, mathConstants, varPanels } from './data.js';
 
 // ── Canvas Particle Background ──────────────────────────
 function initCanvas() {
@@ -258,80 +258,9 @@ function initFunctions() {
     });
 }
 
-// ── Memory Section ───────────────────────────────────────
-// function initMemory() {
-//     document.getElementById('stack-demo-btn').addEventListener('click', () => {
-//         let a = 10, b = a;
-//         b = 20;
-//         document.getElementById('stack-result').textContent = `a = ${a}, b = ${b} → a unchanged ✅`;
-//     });
 
-//     document.getElementById('heap-demo-btn').addEventListener('click', () => {
-//         const obj1 = { name: 'Alice' };
-//         const obj2 = obj1;
-//         obj2.name = 'Mutated!';
-//         document.getElementById('heap-result').textContent = `obj1.name = "${obj1.name}" ⚠️ Both changed!`;
-//     });
 
-//     const copyOutput = document.getElementById('copy-output');
-//     const methods = {
-//         spread: () => {
-//             const original = { a: 1, nested: { b: 2 } };
-//             const copy = { ...original };
-//             copy.a = 99;
-//             return `<span class="cm">// Spread operator (shallow copy)</span>
-// const original = { a: 1, nested: { b: 2 } };
-// const copy = { ...original };
-// copy.a = 99;
-// <span class="cm">// original.a = ${original.a} ✅ (not affected)</span>
-// <span class="cm">// BUT nested objects still shared!</span>`;
-//         },
-//         assign: () => {
-//             return `<span class="cm">// Object.assign (also shallow)</span>
-// const original = { a: 1, b: 2 };
-// const copy = Object.assign({}, original);
-// copy.a = 99;
-// <span class="cm">// original.a = 1 ✅ (not affected)</span>
-// <span class="cm">// Same caveat — nested objects shared</span>`;
-//         },
-//         json: () => {
-//             return `<span class="cm">// JSON deep copy (simple but limited)</span>
-// const original = { a: 1, nested: { b: 2 } };
-// const deep = JSON.parse(JSON.stringify(original));
-// deep.nested.b = 99;
-// <span class="cm">// original.nested.b = 2 ✅ Truly independent!</span>
-// <span class="cm">// ⚠️ Loses: functions, undefined, Date, etc.</span>`;
-//         }
-//     };
-
-//     function showCopyMethod(method) {
-//         copyOutput.innerHTML = `<code style="white-space:pre;line-height:2;font-family:var(--mono);font-size:.83rem">${methods[method]()}</code>`;
-//     }
-//     showCopyMethod('spread');
-
-//     document.querySelectorAll('.copy-method-btn').forEach(btn => {
-//         btn.addEventListener('click', () => {
-//             document.querySelectorAll('.copy-method-btn').forEach(b => b.classList.remove('active'));
-//             btn.classList.add('active');
-//             showCopyMethod(btn.dataset.method);
-//         });
-//     });
-// }
-
-// ── Quirks Section ───────────────────────────────────────
-function initQuirks() {
-    document.getElementById('floor-btn').addEventListener('click', () => {
-        const val = parseFloat(document.getElementById('floor-input').value);
-        const out = document.getElementById('floor-output');
-        if (isNaN(val)) {
-            out.innerHTML = '<span style="color:#ef4444">Enter a number</span>';
-            return;
-        }
-        out.innerHTML = `<span style="color:var(--a5)">Math.floor(${val}) = <strong>${Math.floor(val)}</strong></span>`;
-    });
-}
-
-// ── Control Flow Section ────────────────────────────────
+// ── Conditional loop Section ────────────────────────────────
 function initControlFlow() {
     // ── Subnav: switch between Conditionals / Loops groups
     const subnavBtns = document.querySelectorAll('.cf-subnav-btn');
@@ -504,10 +433,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initTruthyFalsy();
     initFunctions();
     // initMemory();
-    initQuirks();
+    // initQuirks();
     initControlFlow();
     initOperators();
     initMath();
+    initVariables();
 });
 
 // ── Operators Section ───────────────────────────────────
@@ -759,4 +689,55 @@ function initMath() {
     }
     document.getElementById('round-btn').addEventListener('click', runRoundCompare);
     document.getElementById('round-input').addEventListener('keydown', e => { if(e.key==='Enter') runRoundCompare(); });
+}
+
+// ── Variable Declaration Section ──────────────────────────
+function initVariables() {
+    const varContent = document.getElementById('var-content');
+
+    function renderVarPanel(key) {
+        const p = varPanels[key];
+        varContent.innerHTML = `
+            <div class="fn-panel active">
+                <div class="fn-desc">
+                    <h3>${p.title}</h3>
+                    <p>${p.desc}</p>
+                    <ul>${p.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+                </div>
+                <div class="fn-code-block"><code>${p.code}</code></div>
+            </div>`;
+    }
+
+    renderVarPanel('var');
+
+    document.querySelectorAll('[data-vtab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('[data-vtab]').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderVarPanel(tab.dataset.vtab);
+        });
+    });
+
+    // Live Sandbox (same pattern as Functions sandbox)
+    document.getElementById('var-run').addEventListener('click', () => {
+        const code = document.getElementById('var-sandbox').value;
+        const out = document.getElementById('var-output');
+        const logs = [];
+        const origLog = console.log;
+        console.log = (...args) => logs.push(args.map(a => {
+            try { return JSON.stringify(a) ?? String(a); } catch { return String(a); }
+        }).join(' '));
+        try {
+            const result = eval(code);
+            console.log = origLog;
+            const resultStr = result !== undefined ? (JSON.stringify(result) ?? String(result)) : undefined;
+            out.innerHTML = [
+                ...logs.map(l => `<span style="color:var(--muted)">log: </span><span style="color:var(--a5)">${l}</span>`),
+                resultStr !== undefined ? `<span style="color:var(--muted)">→ </span><span style="color:var(--a1)">${resultStr}</span>` : ''
+            ].filter(Boolean).join('<br>') || '<span class="output-placeholder">// No output</span>';
+        } catch (err) {
+            console.log = origLog;
+            out.innerHTML = `<span style="color:#ef4444">❌ ${err.message}</span>`;
+        }
+    });
 }

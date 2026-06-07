@@ -47,15 +47,15 @@
               >Functions</a
             >
           </li>
-          <li>
+          <!-- <li>
             <a href="#memory" class="nav-link" data-section="memory">Memory</a>
           </li>
           <li>
             <a href="#quirks" class="nav-link" data-section="quirks">Quirks</a>
-          </li>
+          </li> -->
           <li>
             <a href="#conditionals" class="nav-link" data-section="conditionals"
-              >Control Flow</a
+              >Conditional & loop</a
             >
           </li>
           <li>
@@ -64,6 +64,7 @@
             >
           </li>
           <li><a href="#math" class="nav-link" data-section="math">Math</a></li>
+          <li><a href="#variables" class="nav-link" data-section="variables">Variables</a></li>
         </ul>
         <div class="progress-ring-container">
           <svg class="progress-ring" width="40" height="40">
@@ -93,7 +94,7 @@
           From <code>typeof undefined</code> to first-class functions.
         </p>
         <div class="hero-stats animate-in delay-3">
-          <div class="stat-pill">7 Concepts</div>
+          <div class="stat-pill">8 Concepts</div>
           <div class="stat-pill">Live Demos</div>
           <div class="stat-pill">Interactive</div>
         </div>
@@ -433,10 +434,106 @@
       </div>
     </section>
 
+<!-- ─── VARIABLE DECLARATION ────────────────────────── -->
+    <section class="section alt-bg" id="variables">
+      <div class="section-inner">
+        <div class="section-label">04 / Variables</div>
+        <h2 class="section-heading">Variable Declaration</h2>
+        <p class="section-sub">
+          Three keywords — <code>var</code>, <code>let</code>, <code>const</code> — each with distinct
+          scoping rules, hoisting behaviour, and reassignment rules.
+        </p>
+
+        <!-- Keyword tabs -->
+        <div class="fn-tabs" id="var-tabs">
+          <button class="fn-tab active" data-vtab="var">⚠️ var</button>
+          <button class="fn-tab" data-vtab="let">✅ let</button>
+          <button class="fn-tab" data-vtab="const">🔒 const</button>
+          <button class="fn-tab" data-vtab="compare">⚖️ Compare All</button>
+          <!-- <button class="fn-tab" data-vtab="scope">🔭 Scope</button> -->
+        </div>
+        <div class="fn-content" id="var-content"></div>
+
+        <!-- Comparison Table -->
+        <div class="var-compare-table" id="var-compare-table">
+          <div class="vct-header">
+            <span></span>
+            <span class="vct-kw var-kw">var</span>
+            <span class="vct-kw let-kw">let</span>
+            <span class="vct-kw const-kw">const</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Scope</span>
+            <span class="vct-cell warn">Function</span>
+            <span class="vct-cell good">Block</span>
+            <span class="vct-cell good">Block</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Hoisting</span>
+            <span class="vct-cell warn">undefined</span>
+            <span class="vct-cell ok">TDZ Error</span>
+            <span class="vct-cell ok">TDZ Error</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Re-declare</span>
+            <span class="vct-cell warn">✅ Yes</span>
+            <span class="vct-cell good">❌ No</span>
+            <span class="vct-cell good">❌ No</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Re-assign</span>
+            <span class="vct-cell warn">✅ Yes</span>
+            <span class="vct-cell warn">✅ Yes</span>
+            <span class="vct-cell good">❌ No</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Init required</span>
+            <span class="vct-cell good">❌ No</span>
+            <span class="vct-cell good">❌ No</span>
+            <span class="vct-cell ok">✅ Yes</span>
+          </div>
+          <div class="vct-row">
+            <span class="vct-label">Use today?</span>
+            <span class="vct-cell warn">🚫 Avoid</span>
+            <span class="vct-cell good">✅ Yes</span>
+            <span class="vct-cell good">✅ Prefer</span>
+          </div>
+        </div>
+
+        <!-- Live Playground -->
+        <div class="demo-box" style="margin-top: 2rem">
+          <div class="demo-box-header">
+            <span class="live-dot"></span> Variable Declaration Sandbox
+          </div>
+          <div class="demo-box-body">
+            <div class="sandbox-area">
+              <textarea
+                id="var-sandbox"
+                class="sandbox-input"
+                spellcheck="false"
+              >// Experiment with var, let, const!
+let counter = 0;
+counter = counter + 1;
+
+const name = "JS Learner";
+console.log(`Hello, ${name}! Count: ${counter}`);
+
+// Try: const x = 5; x = 10;  → TypeError</textarea>
+              <button class="demo-btn run-btn" id="var-run">▶ Run</button>
+            </div>
+            <div class="demo-output" id="var-output">
+              <span class="output-placeholder">// output appears here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- ─── FUNCTIONS ─────────────────────────────────────── -->
     <section class="section alt-bg" id="functions">
       <div class="section-inner">
-        <div class="section-label">04 / Functions</div>
+        <div class="section-label">05 / Functions</div>
         <h2 class="section-heading">Functions are Data type in JS</h2>
         <p class="section-sub">
           In JS, functions are objects — they can be stored, passed, and
@@ -448,9 +545,9 @@
             Declaration
           </button>
           <button class="fn-tab" data-tab="expression">Expression</button>
-          <button class="fn-tab" data-tab="arrow">Arrow</button>
+          <!-- <button class="fn-tab" data-tab="arrow">Arrow</button>
           <button class="fn-tab" data-tab="hof">Higher-Order</button>
-          <button class="fn-tab" data-tab="closure">Closure</button>
+          <button class="fn-tab" data-tab="closure">Closure</button> -->
         </div>
 
         <div class="fn-content" id="fn-content"></div>
@@ -483,323 +580,15 @@ greet("JavaScript Learner");</textarea
       </div>
     </section>
 
-    <!-- ─── MEMORY ────────────────────────────────────────── -->
-    <!-- <section class="section" id="memory">
-      <div class="section-inner">
-        <div class="section-label">05 / Memory</div>
-        <h2 class="section-heading">Value vs Reference</h2>
-        <p class="section-sub">
-          How data is stored and copied depends on whether it's primitive or
-          reference.
-        </p>
+    
+    
+ 
 
-        <div class="memory-visual" id="memory-visual">
-          <div class="mem-scene stack-scene">
-            <h3 class="mem-scene-title">📦 Stack Memory (Primitives)</h3>
-            <div class="mem-diagram" id="stack-diagram">
-              <div class="mem-var">
-                <span class="mem-name">let a =</span
-                ><span class="mem-val prim">10</span>
-              </div>
-              <div class="mem-var">
-                <span class="mem-name">let b = a</span
-                ><span class="mem-val prim">10</span>
-              </div>
-              <div class="mem-arrow-note">b gets its own copy ✅</div>
-            </div>
-            <div class="mem-demo-row">
-              <button class="mem-btn" id="stack-demo-btn">
-                Demo: Change b
-              </button>
-              <code id="stack-result" class="mem-result"></code>
-            </div>
-          </div>
 
-          <div class="mem-scene heap-scene">
-            <h3 class="mem-scene-title">🗄️ Heap Memory (References)</h3>
-            <div class="mem-diagram" id="heap-diagram">
-              <div class="mem-var">
-                <span class="mem-name">let obj1 =</span
-                ><span class="mem-val ref-val">{ name: "Alice" }</span>
-              </div>
-              <div class="mem-var">
-                <span class="mem-name">let obj2 = obj1</span
-                ><span class="mem-val ref-ptr">→ same address</span>
-              </div>
-              <div class="mem-arrow-note warning">
-                Both point to same memory ⚠️
-              </div>
-            </div>
-            <div class="mem-demo-row">
-              <button class="mem-btn" id="heap-demo-btn">
-                Demo: Mutate obj2
-              </button>
-              <code id="heap-result" class="mem-result"></code>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-box">
-          <div class="demo-box-header">
-            <span class="live-dot"></span> Deep Copy vs Shallow Copy
-          </div>
-          <div class="demo-box-body">
-            <div class="copy-methods">
-              <button class="copy-method-btn active" data-method="spread">
-                Spread {...}
-              </button>
-              <button class="copy-method-btn" data-method="assign">
-                Object.assign()
-              </button>
-              <button class="copy-method-btn" data-method="json">
-                JSON (deep)
-              </button>
-            </div>
-            <div class="demo-output" id="copy-output"></div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- ─── QUIRKS ─────────────────────────────────────────── -->
-    <section class="section alt-bg" id="quirks">
-      <div class="section-inner">
-        <div class="section-label">06 / Quirks & Built-ins</div>
-        <h2 class="section-heading">JavaScript Surprises</h2>
-        <p class="section-sub">
-          JS has some unique behaviors that often surprise newcomers.
-        </p>
-
-        <div class="quirks-grid">
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">⬇️</div>
-            <h3>Math.floor()</h3>
-            <p>
-              Always rounds down to the nearest integer — even for negatives.
-            </p>
-            <div class="quirk-demo">
-              <input
-                type="number"
-                id="floor-input"
-                class="demo-input small"
-                placeholder="4.7"
-                step="0.01"
-              />
-              <button class="demo-btn small" id="floor-btn">Floor it</button>
-              <div class="demo-output small" id="floor-output"></div>
-            </div>
-          </div>
-
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">🦄</div>
-            <h3>typeof null === "object"</h3>
-            <p>
-              A famous bug from 1995 that was never fixed for backwards
-              compatibility.
-            </p>
-            <pre
-              class="inline-code"
-            ><code><span class="kw">typeof</span> <span class="val">null</span>; <span class="cm">// "object" 🤯</span>
-<span class="kw">typeof</span> <span class="fn">function</span>(){}; <span class="cm">// "function"</span>
-<span class="kw">typeof</span> []; <span class="cm">// "object"</span></code></pre>
-          </div>
-
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">🔢</div>
-            <h3>== vs ===</h3>
-            <p>
-              Double equals coerces types. Triple equals is strict — no
-              coercion.
-            </p>
-            <pre
-              class="inline-code"
-            ><code><span class="val">0</span> <span class="op">==</span>  <span class="str">""</span>  <span class="cm">// true 😱</span>
-<span class="val">0</span> <span class="op">===</span> <span class="str">""</span>  <span class="cm">// false ✅</span>
-<span class="kw">null</span> <span class="op">==</span> <span class="kw">undefined</span> <span class="cm">// true</span></code></pre>
-          </div>
-
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">🔤</div>
-            <h3>String Coercion</h3>
-            <p>
-              The + operator converts numbers to strings when mixed with
-              strings.
-            </p>
-            <pre
-              class="inline-code"
-            ><code><span class="str">"5"</span> <span class="op">+</span> <span class="val">3</span>   <span class="cm">// "53" (concat)</span>
-<span class="str">"5"</span> <span class="op">-</span> <span class="val">3</span>   <span class="cm">// 2 (math)</span>
-<span class="val">1</span> <span class="op">+</span> <span class="val">2</span> <span class="op">+</span> <span class="str">"3"</span> <span class="cm">// "33"</span></code></pre>
-          </div>
-
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">📶</div>
-            <h3>Hoisting</h3>
-            <p>
-              var declarations and function declarations are "hoisted" to the
-              top of their scope.
-            </p>
-            <pre
-              class="inline-code"
-            ><code><span class="fn">sayHi</span>(); <span class="cm">// Works! ✅</span>
-<span class="kw">function</span> <span class="fn">sayHi</span>() { <span class="cm">/* ... */</span> }
-
-<span class="fn">sayBye</span>(); <span class="cm">// TypeError ❌</span>
-<span class="kw">const</span> <span class="fn">sayBye</span> = () => {};</code></pre>
-          </div>
-
-          <div class="quirk-card" data-aos>
-            <div class="quirk-icon">⚡</div>
-            <h3>Single Threaded</h3>
-            <p>
-              JS runs on one thread but uses the Event Loop for non-blocking
-              async operations.
-            </p>
-            <div class="event-loop-mini">
-              <div class="el-box">Call Stack</div>
-              <div class="el-arrow">→</div>
-              <div class="el-box">Web APIs</div>
-              <div class="el-arrow">→</div>
-              <div class="el-box">Task Queue</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── CONDITIONALS & LOOPS ─────────────────────────── -->
-    <section class="section" id="conditionals">
-      <div class="section-inner">
-        <div class="section-label">07 / Control Flow</div>
-        <h2 class="section-heading">Conditionals &amp; Loops</h2>
-        <p class="section-sub">
-          Control what runs, when it runs, and how many times it runs.
-        </p>
-
-        <!-- Sub-tabs: Conditionals | Loops -->
-        <div class="cf-subnav">
-          <button class="cf-subnav-btn active" data-group="conditionals">
-            🔀 Conditionals
-          </button>
-          <button class="cf-subnav-btn" data-group="loops">🔁 Loops</button>
-        </div>
-
-        <!-- CONDITIONALS group -->
-        <div class="cf-group" id="cf-group-conditionals">
-          <div class="fn-tabs" id="cond-tabs">
-            <button class="fn-tab active" data-ctab="if-else">if / else</button>
-            <button class="fn-tab" data-ctab="ternary">Ternary</button>
-            <button class="fn-tab" data-ctab="switch">switch</button>
-            <button class="fn-tab" data-ctab="nullish">?? &amp; ||</button>
-          </div>
-          <div class="fn-content" id="cond-content"></div>
-
-          <!-- Conditional Playground -->
-          <div class="demo-box" style="margin-top: 2rem">
-            <div class="demo-box-header">
-              <span class="live-dot"></span> Conditional Playground
-            </div>
-            <div class="demo-box-body">
-              <p
-                style="
-                  color: var(--muted);
-                  font-size: 0.875rem;
-                  margin-bottom: 1rem;
-                "
-              >
-                Enter a value and choose how to evaluate it:
-              </p>
-              <div class="cond-playground">
-                <input
-                  type="text"
-                  id="cond-input"
-                  class="demo-input"
-                  placeholder='42, "hello", null, undefined, true...'
-                />
-                <div class="cond-op-btns">
-                  <button class="cond-op-btn active" data-op="if">
-                    if / else
-                  </button>
-                  <button class="cond-op-btn" data-op="ternary">Ternary</button>
-                  <button class="cond-op-btn" data-op="nullish">??</button>
-                  <button class="cond-op-btn" data-op="or">||</button>
-                </div>
-                <button class="demo-btn" id="cond-run-btn">▶ Evaluate</button>
-              </div>
-              <div class="demo-output" id="cond-output">
-                <span class="output-placeholder"
-                  >// result will appear here</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- LOOPS group -->
-        <div class="cf-group hidden" id="cf-group-loops">
-          <div class="fn-tabs" id="loop-tabs">
-            <button class="fn-tab active" data-ltab="for">for</button>
-            <button class="fn-tab" data-ltab="while">while</button>
-            <button class="fn-tab" data-ltab="dowhile">do...while</button>
-            <button class="fn-tab" data-ltab="forof">for...of</button>
-            <button class="fn-tab" data-ltab="forin">for...in</button>
-            <button class="fn-tab" data-ltab="foreach">forEach</button>
-          </div>
-          <div class="fn-content" id="loop-content"></div>
-
-          <!-- Loop Visualizer -->
-          <div class="demo-box" style="margin-top: 2rem">
-            <div class="demo-box-header">
-              <span class="live-dot"></span> Loop Visualizer
-            </div>
-            <div class="demo-box-body">
-              <div class="loop-viz-controls">
-                <div class="loop-control-row">
-                  <label class="loop-label">Loop Type</label>
-                  <div class="loop-type-btns">
-                    <button class="loop-type-btn active" data-loop="for">
-                      for
-                    </button>
-                    <button class="loop-type-btn" data-loop="while">
-                      while
-                    </button>
-                    <button class="loop-type-btn" data-loop="forof">
-                      for...of
-                    </button>
-                  </div>
-                </div>
-                <div class="loop-control-row">
-                  <label class="loop-label">Iterations</label>
-                  <input
-                    type="range"
-                    id="loop-count"
-                    min="1"
-                    max="10"
-                    value="5"
-                    class="loop-range"
-                  />
-                  <span id="loop-count-val" class="loop-range-val">5</span>
-                </div>
-                <button class="demo-btn" id="loop-run-btn">▶ Run Loop</button>
-              </div>
-              <div class="loop-viz-output">
-                <div class="loop-code-preview" id="loop-code-preview"></div>
-                <div class="loop-steps" id="loop-steps">
-                  <div class="loop-steps-placeholder">
-                    Press Run Loop to animate ▶
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── OPERATORS ──────────────────────────────────────── -->
+ <!-- ─── OPERATORS ──────────────────────────────────────── -->
     <section class="section alt-bg" id="operators">
       <div class="section-inner">
-        <div class="section-label">08 / Operators</div>
+        <div class="section-label">06 / Operators</div>
         <h2 class="section-heading">JavaScript Operators</h2>
         <p class="section-sub">
           The symbols that perform actions on values — math, comparison, logic,
@@ -936,10 +725,144 @@ greet("JavaScript Learner");</textarea
       </div>
     </section>
 
+
+
+
+    <!-- ─── CONDITIONALS & LOOPS ─────────────────────────── -->
+    <section class="section" id="conditionals">
+      <div class="section-inner">
+        <div class="section-label">07 / Control Flow</div>
+        <h2 class="section-heading">Conditionals &amp; Loops</h2>
+        <p class="section-sub">
+          Control what runs, when it runs, and how many times it runs.
+        </p>
+
+        <!-- Sub-tabs: Conditionals | Loops -->
+        <div class="cf-subnav">
+          <button class="cf-subnav-btn active" data-group="conditionals">
+            🔀 Conditionals
+          </button>
+          <button class="cf-subnav-btn" data-group="loops">🔁 Loops</button>
+        </div>
+
+        <!-- CONDITIONALS group -->
+        <div class="cf-group" id="cf-group-conditionals">
+          <div class="fn-tabs" id="cond-tabs">
+            <button class="fn-tab active" data-ctab="if-else">if / else</button>
+            <button class="fn-tab" data-ctab="ternary">Ternary</button>
+            <button class="fn-tab" data-ctab="switch">switch</button>
+            <button class="fn-tab" data-ctab="nullish">?? &amp; ||</button>
+          </div>
+          <div class="fn-content" id="cond-content"></div>
+
+          <!-- Conditional Playground -->
+          <div class="demo-box" style="margin-top: 2rem">
+            <div class="demo-box-header">
+              <span class="live-dot"></span> Conditional Playground
+            </div>
+            <div class="demo-box-body">
+              <p
+                style="
+                  color: var(--muted);
+                  font-size: 0.875rem;
+                  margin-bottom: 1rem;
+                "
+              >
+                Enter a value and choose how to evaluate it:
+              </p>
+              <div class="cond-playground">
+                <input
+                  type="text"
+                  id="cond-input"
+                  class="demo-input"
+                  placeholder='42, "hello", null, undefined, true...'
+                />
+                <div class="cond-op-btns">
+                  <button class="cond-op-btn active" data-op="if">
+                    if / else
+                  </button>
+                  <button class="cond-op-btn" data-op="ternary">Ternary</button>
+                  <button class="cond-op-btn" data-op="nullish">??</button>
+                  <button class="cond-op-btn" data-op="or">||</button>
+                </div>
+                <button class="demo-btn" id="cond-run-btn">▶ Evaluate</button>
+              </div>
+              <div class="demo-output" id="cond-output">
+                <span class="output-placeholder"
+                  >// result will appear here</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOOPS group -->
+        <div class="cf-group hidden" id="cf-group-loops">
+          <div class="fn-tabs" id="loop-tabs">
+            <button class="fn-tab active" data-ltab="for">for</button>
+            <button class="fn-tab" data-ltab="while">while</button>
+            <button class="fn-tab" data-ltab="dowhile">do...while</button>
+            <button class="fn-tab" data-ltab="forof">for...of</button>
+            <button class="fn-tab" data-ltab="forin">for...in</button>
+            <button class="fn-tab" data-ltab="foreach">forEach</button>
+          </div>
+          <div class="fn-content" id="loop-content"></div>
+
+          <!-- Loop Visualizer -->
+          <div class="demo-box" style="margin-top: 2rem">
+            <div class="demo-box-header">
+              <span class="live-dot"></span> Loop Visualizer
+            </div>
+            <div class="demo-box-body">
+              <div class="loop-viz-controls">
+                <div class="loop-control-row">
+                  <label class="loop-label">Loop Type</label>
+                  <div class="loop-type-btns">
+                    <button class="loop-type-btn active" data-loop="for">
+                      for
+                    </button>
+                    <button class="loop-type-btn" data-loop="while">
+                      while
+                    </button>
+                    <button class="loop-type-btn" data-loop="forof">
+                      for...of
+                    </button>
+                  </div>
+                </div>
+                <div class="loop-control-row">
+                  <label class="loop-label">Iterations</label>
+                  <input
+                    type="range"
+                    id="loop-count"
+                    min="1"
+                    max="10"
+                    value="5"
+                    class="loop-range"
+                  />
+                  <span id="loop-count-val" class="loop-range-val">5</span>
+                </div>
+                <button class="demo-btn" id="loop-run-btn">▶ Run Loop</button>
+              </div>
+              <div class="loop-viz-output">
+                <div class="loop-code-preview" id="loop-code-preview"></div>
+                <div class="loop-steps" id="loop-steps">
+                  <div class="loop-steps-placeholder">
+                    Press Run Loop to animate ▶
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+
     <!-- ─── MATH FUNCTIONS ──────────────────────────────────── -->
     <section class="section" id="math">
       <div class="section-inner">
-        <div class="section-label">09 / Math Object</div>
+        <div class="section-label">08 / Math Object</div>
         <h2 class="section-heading">Math Functions in JS</h2>
         <p class="section-sub">
           The built-in <code>Math</code> object gives you constants and
@@ -1083,6 +1006,8 @@ greet("JavaScript Learner");</textarea
         </div>
       </div>
     </section>
+
+   
 
     <!-- Footer -->
     <footer class="site-footer">

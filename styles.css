@@ -329,3 +329,69 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:h
     .memory-visual{grid-template-columns:1fr}
     .nav-links{display:none}
 }
+
+/* ── VARIABLE DECLARATION SECTION ── */
+.var-compare-table{
+    display:grid;
+    grid-template-rows:auto;
+    gap:.5rem;
+    background:rgba(0,0,0,.25);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:1.5rem;
+    margin:2rem 0;
+}
+.vct-header,.vct-row{
+    display:grid;
+    grid-template-columns:160px 1fr 1fr 1fr;
+    gap:.5rem;
+    align-items:center;
+}
+.vct-header{
+    padding-bottom:.75rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:.25rem;
+}
+.vct-kw{
+    font-family:var(--mono);
+    font-size:1.1rem;
+    font-weight:800;
+    text-align:center;
+    padding:.35rem;
+    border-radius:8px;
+}
+.var-kw{color:#f78c6c;background:rgba(247,140,108,.1);border:1px solid rgba(247,140,108,.25)}
+.let-kw{color:var(--a5);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25)}
+.const-kw{color:var(--a3);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25)}
+.vct-row{
+    padding:.5rem 0;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    transition:background .2s;
+    border-radius:6px;
+}
+.vct-row:last-child{border-bottom:none}
+.vct-row:hover{background:rgba(255,255,255,.02)}
+.vct-label{
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--muted);
+    padding-left:.25rem;
+}
+.vct-cell{
+    text-align:center;
+    font-family:var(--mono);
+    font-size:.85rem;
+    font-weight:700;
+    padding:.35rem .5rem;
+    border-radius:7px;
+}
+.vct-cell.good{background:rgba(16,185,129,.12);color:var(--a5);border:1px solid rgba(16,185,129,.2)}
+.vct-cell.warn{background:rgba(247,140,108,.12);color:#f78c6c;border:1px solid rgba(247,140,108,.2)}
+.vct-cell.ok{background:rgba(245,158,11,.12);color:var(--a1);border:1px solid rgba(245,158,11,.2)}
+
+@media(max-width:680px){
+    .vct-header,.vct-row{grid-template-columns:100px 1fr 1fr 1fr}
+    .vct-label{font-size:.75rem}
+    .vct-cell{font-size:.72rem;padding:.25rem}
+}
+
