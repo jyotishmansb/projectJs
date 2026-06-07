@@ -1,51 +1,61 @@
 export const typeData = {
     string: {
         name: 'String',
+        desc:'Stores text',
         typeof: 'typeof x === "string"',
-        examples: ['"hello"', '"JavaScript"', '`template ${literal}`', '"" (empty)']
+        examples: ['let name = "John"', 'let a = "JavaScript is easy"', '`template ${literal}`', '"" (empty)']
     },
     number: {
         name: 'Number',
+        desc:'Stores numeric values (integers and decimals)',
         typeof: 'typeof x === "number"',
-        examples: ['42', '3.14', '-7', 'Infinity', 'NaN (also a number!)']
+        examples: ['let age = 22', 'let num = 3.14', 'let a = -7', 'NaN (also a number!)']
     },
     boolean: {
         name: 'Boolean',
+        desc:'Stores true or false',
         typeof: 'typeof x === "boolean"',
-        examples: ['true', 'false']
+        examples: ['true', 'false', 'let isLoggedIn = true']
     },
     null: {
         name: 'Null',
+        desc:'Represents an intentional absence of a value',
         typeof: 'typeof null === "object" (bug!)',
         examples: ['null', '// intentional absence of value']
     },
     undefined: {
         name: 'Undefined',
+        desc:'A variable that has been declared but not assigned a value',
         typeof: 'typeof x === "undefined"',
         examples: ['undefined', 'let x; // x is undefined', 'void 0']
     },
     symbol: {
         name: 'Symbol',
+        desc:'Stores a unique and immutable identifier',
         typeof: 'typeof x === "symbol"',
-        examples: ['Symbol("id")', 'Symbol.iterator', '// always unique']
+        examples: ['const id1 = Symbol("user")', 'const id2 = Symbol("user")', 'console.log(id1 === id2); // false','Symbol.iterator', '// always unique']
     },
     bigint: {
         name: 'BigInt',
+        desc:'Stores very large integers beyond the safe Number limit',
         typeof: 'typeof x === "bigint"',
         examples: ['9007199254740991n', 'BigInt(123)', '// for huge integers']
     },
     object: {
         name: 'Object',
+        desc:'Stores data as key-value pairs',
         typeof: 'typeof x === "object"',
-        examples: ['{ name: "Alice" }', '{ key: "value", num: 42 }', 'null (also "object"!)']
+        examples: ['person = { name: "Alice" }', 'employee = { key: "value", num: 42 }', 'null (also "object"!)']
     },
     array: {
         name: 'Array',
+        desc:'Stores an ordered list of values',
         typeof: 'typeof x === "object" (Array!)',
-        examples: ['[1, 2, 3]', '["a", "b"]', 'Array.isArray(x) // true check']
+        examples: ['arr = [1, 2, 3]', 'c = ["a", "b"]', 'Array.isArray(x) // true check']
     },
     function: {
         name: 'Function',
+        desc:'A reusable block of code that can be called',
         typeof: 'typeof x === "function"',
         examples: ['function foo() {}', 'const bar = () => {}', '// functions are objects']
     }

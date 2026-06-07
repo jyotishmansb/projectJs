@@ -142,6 +142,7 @@ function initDataTypes() {
             body.innerHTML = `
                 <div>
                     <div class="type-info-name">${info.name}</div>
+                      <div class="type-info-desc">${info.desc}</div>
                     <div class="type-info-typeof">${info.typeof}</div>
                     <ul class="type-info-examples">
                         ${info.examples.map(e => `<li>${e}</li>`).join('')}
@@ -258,64 +259,64 @@ function initFunctions() {
 }
 
 // ── Memory Section ───────────────────────────────────────
-function initMemory() {
-    document.getElementById('stack-demo-btn').addEventListener('click', () => {
-        let a = 10, b = a;
-        b = 20;
-        document.getElementById('stack-result').textContent = `a = ${a}, b = ${b} → a unchanged ✅`;
-    });
+// function initMemory() {
+//     document.getElementById('stack-demo-btn').addEventListener('click', () => {
+//         let a = 10, b = a;
+//         b = 20;
+//         document.getElementById('stack-result').textContent = `a = ${a}, b = ${b} → a unchanged ✅`;
+//     });
 
-    document.getElementById('heap-demo-btn').addEventListener('click', () => {
-        const obj1 = { name: 'Alice' };
-        const obj2 = obj1;
-        obj2.name = 'Mutated!';
-        document.getElementById('heap-result').textContent = `obj1.name = "${obj1.name}" ⚠️ Both changed!`;
-    });
+//     document.getElementById('heap-demo-btn').addEventListener('click', () => {
+//         const obj1 = { name: 'Alice' };
+//         const obj2 = obj1;
+//         obj2.name = 'Mutated!';
+//         document.getElementById('heap-result').textContent = `obj1.name = "${obj1.name}" ⚠️ Both changed!`;
+//     });
 
-    const copyOutput = document.getElementById('copy-output');
-    const methods = {
-        spread: () => {
-            const original = { a: 1, nested: { b: 2 } };
-            const copy = { ...original };
-            copy.a = 99;
-            return `<span class="cm">// Spread operator (shallow copy)</span>
-const original = { a: 1, nested: { b: 2 } };
-const copy = { ...original };
-copy.a = 99;
-<span class="cm">// original.a = ${original.a} ✅ (not affected)</span>
-<span class="cm">// BUT nested objects still shared!</span>`;
-        },
-        assign: () => {
-            return `<span class="cm">// Object.assign (also shallow)</span>
-const original = { a: 1, b: 2 };
-const copy = Object.assign({}, original);
-copy.a = 99;
-<span class="cm">// original.a = 1 ✅ (not affected)</span>
-<span class="cm">// Same caveat — nested objects shared</span>`;
-        },
-        json: () => {
-            return `<span class="cm">// JSON deep copy (simple but limited)</span>
-const original = { a: 1, nested: { b: 2 } };
-const deep = JSON.parse(JSON.stringify(original));
-deep.nested.b = 99;
-<span class="cm">// original.nested.b = 2 ✅ Truly independent!</span>
-<span class="cm">// ⚠️ Loses: functions, undefined, Date, etc.</span>`;
-        }
-    };
+//     const copyOutput = document.getElementById('copy-output');
+//     const methods = {
+//         spread: () => {
+//             const original = { a: 1, nested: { b: 2 } };
+//             const copy = { ...original };
+//             copy.a = 99;
+//             return `<span class="cm">// Spread operator (shallow copy)</span>
+// const original = { a: 1, nested: { b: 2 } };
+// const copy = { ...original };
+// copy.a = 99;
+// <span class="cm">// original.a = ${original.a} ✅ (not affected)</span>
+// <span class="cm">// BUT nested objects still shared!</span>`;
+//         },
+//         assign: () => {
+//             return `<span class="cm">// Object.assign (also shallow)</span>
+// const original = { a: 1, b: 2 };
+// const copy = Object.assign({}, original);
+// copy.a = 99;
+// <span class="cm">// original.a = 1 ✅ (not affected)</span>
+// <span class="cm">// Same caveat — nested objects shared</span>`;
+//         },
+//         json: () => {
+//             return `<span class="cm">// JSON deep copy (simple but limited)</span>
+// const original = { a: 1, nested: { b: 2 } };
+// const deep = JSON.parse(JSON.stringify(original));
+// deep.nested.b = 99;
+// <span class="cm">// original.nested.b = 2 ✅ Truly independent!</span>
+// <span class="cm">// ⚠️ Loses: functions, undefined, Date, etc.</span>`;
+//         }
+//     };
 
-    function showCopyMethod(method) {
-        copyOutput.innerHTML = `<code style="white-space:pre;line-height:2;font-family:var(--mono);font-size:.83rem">${methods[method]()}</code>`;
-    }
-    showCopyMethod('spread');
+//     function showCopyMethod(method) {
+//         copyOutput.innerHTML = `<code style="white-space:pre;line-height:2;font-family:var(--mono);font-size:.83rem">${methods[method]()}</code>`;
+//     }
+//     showCopyMethod('spread');
 
-    document.querySelectorAll('.copy-method-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.copy-method-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            showCopyMethod(btn.dataset.method);
-        });
-    });
-}
+//     document.querySelectorAll('.copy-method-btn').forEach(btn => {
+//         btn.addEventListener('click', () => {
+//             document.querySelectorAll('.copy-method-btn').forEach(b => b.classList.remove('active'));
+//             btn.classList.add('active');
+//             showCopyMethod(btn.dataset.method);
+//         });
+//     });
+// }
 
 // ── Quirks Section ───────────────────────────────────────
 function initQuirks() {
@@ -502,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDataTypes();
     initTruthyFalsy();
     initFunctions();
-    initMemory();
+    // initMemory();
     initQuirks();
     initControlFlow();
     initOperators();
