@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Journey — JavaScript Concepts Visualized</title>
+    <meta name="description" content="An interactive, visual journey through JavaScript core concepts: data types, functions, truthy/falsy, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Animated Canvas Background -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Top Nav -->
+<nav class="top-nav" id="top-nav">
+    <div class="nav-inner">
+        <span class="nav-logo">JS<span class="accent">.</span></span>
+        <ul class="nav-links">
+            <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
+            <li><a href="#history" class="nav-link" data-section="history">History</a></li>
+            <li><a href="#data-types" class="nav-link" data-section="data-types">Data Types</a></li>
+            <li><a href="#truthy-falsy" class="nav-link" data-section="truthy-falsy">Truthy/Falsy</a></li>
+            <li><a href="#functions" class="nav-link" data-section="functions">Functions</a></li>
+            <li><a href="#memory" class="nav-link" data-section="memory">Memory</a></li>
+            <li><a href="#quirks" class="nav-link" data-section="quirks">Quirks</a></li>
+            <li><a href="#conditionals" class="nav-link" data-section="conditionals">Control Flow</a></li>
+            <li><a href="#operators" class="nav-link" data-section="operators">Operators</a></li>
+            <li><a href="#math" class="nav-link" data-section="math">Math</a></li>
+        </ul>
+        <div class="progress-ring-container">
+            <svg class="progress-ring" width="40" height="40">
+                <circle class="progress-ring-bg" cx="20" cy="20" r="16"/>
+                <circle class="progress-ring-fill" id="progress-ring-fill" cx="20" cy="20" r="16"/>
+            </svg>
+            <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+    </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<section class="section hero-section" id="hero">
+    <div class="hero-content">
+        <div class="badge animate-in">✦ Interactive Learning Experience</div>
+        <h1 class="hero-title animate-in delay-1">
+            My <span class="gradient-text">JavaScript</span><br>Journey
+        </h1>
+        <p class="hero-sub animate-in delay-2">
+            Core concepts, visual explanations, and live playgrounds.<br>
+            From <code>typeof undefined</code> to first-class functions.
+        </p>
+        <div class="hero-stats animate-in delay-3">
+            <div class="stat-pill">7 Concepts</div>
+            <div class="stat-pill">Live Demos</div>
+            <div class="stat-pill">Interactive</div>
+        </div>
+        <a href="#history" class="cta-btn animate-in delay-4">
+            Start Exploring
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+    <div class="hero-visual animate-in delay-2">
+        <div class="code-window">
+            <div class="code-window-bar">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-window-title">index.js</span>
+            </div>
+            <div class="code-window-body" id="typewriter-code"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── HISTORY ───────────────────────────────────────── -->
+<section class="section" id="history">
+    <div class="section-inner">
+        <div class="section-label">01 / History</div>
+        <h2 class="section-heading">The Birth of JavaScript</h2>
+        <p class="section-sub">Created in 10 days. Ran the internet for 30 years.</p>
+        <div class="timeline">
+            <div class="tl-item" data-aos>
+                <div class="tl-dot" style="--c:#f59e0b"></div>
+                <div class="tl-card">
+                    <span class="tl-year">1995</span>
+                    <h3>Brendan Eich Creates JS</h3>
+                    <p>Netscape hired Brendan Eich to create a scripting language for browsers. He wrote the first version in just <strong>10 days</strong>. It was originally called <em>Mocha</em>, then <em>LiveScript</em>, then finally JavaScript.</p>
+                </div>
+            </div>
+            <div class="tl-item" data-aos>
+                <div class="tl-dot" style="--c:#3b82f6"></div>
+                <div class="tl-card">
+                    <span class="tl-year">1997</span>
+                    <h3>ECMAScript Standard Born</h3>
+                    <p>JavaScript was submitted to ECMA International for standardization. The result was <strong>ECMAScript 1</strong> — a specification that all browsers agreed to follow.</p>
+                </div>
+            </div>
+            <div class="tl-item" data-aos>
+                <div class="tl-dot" style="--c:#8b5cf6"></div>
+                <div class="tl-card">
+                    <span class="tl-year">2008</span>
+                    <h3>V8 Engine & Speed Revolution</h3>
+                    <p>Google released the <strong>V8 JavaScript engine</strong> with Chrome. V8 compiled JS directly to machine code using JIT compilation, making it blazing fast.</p>
+                </div>
+            </div>
+            <div class="tl-item" data-aos>
+                <div class="tl-dot" style="--c:#ec4899"></div>
+                <div class="tl-card">
+                    <span class="tl-year">2009</span>
+                    <h3>Node.js — JS Leaves the Browser</h3>
+                    <p>Ryan Dahl used V8 to create <strong>Node.js</strong>, allowing JavaScript to run on servers. JS became a full-stack language.</p>
+                </div>
+            </div>
+            <div class="tl-item" data-aos>
+                <div class="tl-dot" style="--c:#10b981"></div>
+                <div class="tl-card">
+                    <span class="tl-year">2015</span>
+                    <h3>ES6 — The Modern Era</h3>
+                    <p><strong>ECMAScript 2015 (ES6)</strong> was the biggest update ever: <code>let</code>, <code>const</code>, arrow functions, classes, promises, template literals, and destructuring — the JS we write today.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── DATA TYPES ────────────────────────────────────── -->
+<section class="section alt-bg" id="data-types">
+    <div class="section-inner">
+        <div class="section-label">02 / Data Types</div>
+        <h2 class="section-heading">Data Types in JS</h2>
+        <p class="section-sub">JavaScript is dynamically typed — variables hold types, not declare them.</p>
+
+        <div class="two-col">
+            <div class="types-grid">
+                <div class="type-category">
+                    <h3 class="type-cat-title primitive">🔷 Primitive Types</h3>
+                    <p class="type-cat-desc">Stored by <strong>value</strong>. Immutable. Copied on assignment.</p>
+                    <div class="type-tags">
+                        <span class="type-tag" data-type="string">String</span>
+                        <span class="type-tag" data-type="number">Number</span>
+                        <span class="type-tag" data-type="boolean">Boolean</span>
+                        <span class="type-tag" data-type="null">Null</span>
+                        <span class="type-tag" data-type="undefined">Undefined</span>
+                        <span class="type-tag" data-type="symbol">Symbol</span>
+                        <span class="type-tag" data-type="bigint">BigInt</span>
+                    </div>
+                </div>
+                <div class="type-category">
+                    <h3 class="type-cat-title reference">🔶 Non Primitive Types</h3>
+                    <p class="type-cat-desc">Stored by <strong>reference</strong>. Mutable. Shared on assignment.</p>
+                    <div class="type-tags">
+                        <span class="type-tag ref" data-type="object">Object</span>
+                        <span class="type-tag ref" data-type="array">Array</span>
+                        <span class="type-tag ref" data-type="function">Function</span>
+                    </div>
+                </div>
+            </div>
+            <div class="type-explorer">
+                <div class="explorer-header">
+                    <span class="explorer-title">typeof Explorer</span>
+                    <span class="explorer-hint">Click a type →</span>
+                </div>
+                <div class="explorer-body" id="type-explorer-body">
+                    <div class="explorer-placeholder">
+                        <span>👆</span>
+                        <p>Click a type tag to explore it</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Copy by Value vs Reference Topic -->
+        <div class="topic-box" style="margin-top: 2.5rem; margin-bottom: 1.5rem;">
+            <h3 class="topic-title">Copy by Value vs Copy by Reference</h3>
+            <p class="topic-desc" style="color:var(--muted); margin-bottom: 1rem; font-size: 0.95rem;">
+                When you assign a variable to another, the behavior depends entirely on its type. Primitives are copied completely (by value), while Non-Primitives share the same memory address (by reference).
+            </p>
+            <div class="two-col">
+                <!-- By Value -->
+                <div class="fn-panel active" style="margin:0; width:100%">
+                    <div class="fn-desc" style="padding-bottom: 0.5rem">
+                        <h4 style="color: var(--a5); margin-bottom: 0.5rem">🔷 Primitive: Copy by Value</h4>
+                        <p style="font-size: 0.85rem">Changing the copy does <strong>not</strong> affect the original.</p>
+                    </div>
+                    <div class="fn-code-block" style="margin: 0; padding: 1rem">
+<code><span class="kw">let</span> a = <span class="val">10</span>;
+<span class="kw">let</span> b = a;  <span class="cm">// b gets a fresh copy of 10</span>
+
+b = <span class="val">20</span>;     <span class="cm">// only b changes</span>
+
+<span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// 10</span>
+<span class="fn">console</span>.<span class="fn">log</span>(b); <span class="cm">// 20</span></code>
+                    </div>
+                </div>
+
+                <!-- By Reference -->
+                <div class="fn-panel active" style="margin:0; width:100%">
+                    <div class="fn-desc" style="padding-bottom: 0.5rem">
+                        <h4 style="color: var(--a1); margin-bottom: 0.5rem">🔶 Non-Primitive: Copy by Reference</h4>
+                        <p style="font-size: 0.85rem">Both variables point to the <strong>same</strong> underlying object.</p>
+                    </div>
+                    <div class="fn-code-block" style="margin: 0; padding: 1rem">
+<code><span class="kw">let</span> obj1 = { <span class="str">name</span>: <span class="str">"Alice"</span> };
+<span class="kw">let</span> obj2 = obj1; <span class="cm">// obj2 points to obj1's memory</span>
+
+obj2.<span class="str">name</span> = <span class="str">"Bob"</span>; <span class="cm">// modifies shared object</span>
+
+<span class="fn">console</span>.<span class="fn">log</span>(obj1.<span class="str">name</span>); <span class="cm">// "Bob" 🤯</span>
+<span class="fn">console</span>.<span class="fn">log</span>(obj2.<span class="str">name</span>); <span class="cm">// "Bob"</span></code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Demo -->
+        <div class="demo-box">
+            <div class="demo-box-header">
+                <span class="live-dot"></span> Live typeof Checker
+            </div>
+            <div class="demo-box-body">
+                <div class="demo-row">
+                    <input type="text" id="typeof-input" class="demo-input" placeholder='Try: 42, "hello", true, null, [], {}'>
+                    <button class="demo-btn" id="typeof-btn">Run typeof</button>
+                </div>
+                <div class="demo-output" id="typeof-output">
+                    <span class="output-placeholder">// result will appear here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── TRUTHY / FALSY ────────────────────────────────── -->
+<section class="section" id="truthy-falsy">
+    <div class="section-inner">
+        <div class="section-label">03 / Truthy & Falsy</div>
+        <h2 class="section-heading">Boolean Coercion</h2>
+        <p class="section-sub">Every value, when used in a boolean context, evaluates to either truthy or falsy.</p>
+
+        <div class="tf-universe">
+            <div class="tf-side falsy-side">
+                <h3 class="tf-side-title">❌ The 6 Falsy Values</h3>
+                <div class="tf-pills">
+                    <div class="tf-pill falsy-pill"><code>false</code></div>
+                    <div class="tf-pill falsy-pill"><code>0</code> <span>also -0 and 0n</span></div>
+                    <div class="tf-pill falsy-pill"><code>""</code> <span>empty string</span></div>
+                    <div class="tf-pill falsy-pill"><code>null</code></div>
+                    <div class="tf-pill falsy-pill"><code>undefined</code></div>
+                    <div class="tf-pill falsy-pill"><code>NaN</code></div>
+                </div>
+            </div>
+            <div class="tf-divider">
+                <div class="tf-vs">IF</div>
+            </div>
+            <div class="tf-side truthy-side">
+                <h3 class="tf-side-title">✅ Everything Else is Truthy</h3>
+                <div class="tf-pills">
+                    <div class="tf-pill truthy-pill"><code>"hello"</code></div>
+                    <div class="tf-pill truthy-pill"><code>1</code></div>
+                    <div class="tf-pill truthy-pill"><code>[]</code> <span>empty array!</span></div>
+                    <div class="tf-pill truthy-pill"><code>{}</code> <span>empty object!</span></div>
+                    <div class="tf-pill truthy-pill"><code>-1</code></div>
+                    <div class="tf-pill truthy-pill"><code>"0"</code> <span>string zero!</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-box-header">
+                <span class="live-dot"></span> Truthy/Falsy Playground
+            </div>
+            <div class="demo-box-body">
+                <div class="demo-row">
+                    <input type="text" id="tf-input" class="demo-input" placeholder='Type: false, 0, "", null, undefined, NaN, [], {}'>
+                    <button class="demo-btn" id="tf-btn">Evaluate</button>
+                </div>
+                <div class="demo-output" id="tf-output">
+                    <span class="output-placeholder">// if (yourValue) { ... }</span>
+                </div>
+                <div class="tf-quick-btns">
+                    <span class="tf-quick-label">Quick test:</span>
+                    <button class="tf-quick" data-val="0">0</button>
+                    <button class="tf-quick" data-val="&quot;&quot;">" "</button>
+                    <button class="tf-quick" data-val="null">null</button>
+                    <button class="tf-quick" data-val="[]">[]</button>
+                    <button class="tf-quick" data-val="{}">{ }</button>
+                    <button class="tf-quick" data-val="NaN">NaN</button>
+                    <button class="tf-quick" data-val="1">1</button>
+                    <button class="tf-quick" data-val="&quot;hi&quot;">"hi"</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FUNCTIONS ─────────────────────────────────────── -->
+<section class="section alt-bg" id="functions">
+    <div class="section-inner">
+        <div class="section-label">04 / Functions</div>
+        <h2 class="section-heading">Functions are Data type in JS</h2>
+        <p class="section-sub">In JS, functions are objects — they can be stored, passed, and returned.</p>
+
+        <div class="fn-tabs">
+            <button class="fn-tab active" data-tab="declaration">Declaration</button>
+            <button class="fn-tab" data-tab="expression">Expression</button>
+            <button class="fn-tab" data-tab="arrow">Arrow</button>
+            <button class="fn-tab" data-tab="hof">Higher-Order</button>
+            <button class="fn-tab" data-tab="closure">Closure</button>
+        </div>
+
+        <div class="fn-content" id="fn-content"></div>
+
+        <div class="demo-box" style="margin-top: 2rem;">
+            <div class="demo-box-header">
+                <span class="live-dot"></span> Function Sandbox
+            </div>
+            <div class="demo-box-body">
+                <div class="sandbox-area">
+                    <textarea id="fn-sandbox" class="sandbox-input" spellcheck="false">// Write and run any function!
+function greet(name) {
+  return "Hello, " + name + "! 👋";
+}
+
+greet("JavaScript Learner");</textarea>
+                    <button class="demo-btn run-btn" id="fn-run">▶ Run</button>
+                </div>
+                <div class="demo-output" id="fn-output">
+                    <span class="output-placeholder">// output appears here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── MEMORY ────────────────────────────────────────── -->
+<section class="section" id="memory">
+    <div class="section-inner">
+        <div class="section-label">05 / Memory</div>
+        <h2 class="section-heading">Value vs Reference</h2>
+        <p class="section-sub">How data is stored and copied depends on whether it's primitive or reference.</p>
+
+        <div class="memory-visual" id="memory-visual">
+            <div class="mem-scene stack-scene">
+                <h3 class="mem-scene-title">📦 Stack Memory (Primitives)</h3>
+                <div class="mem-diagram" id="stack-diagram">
+                    <div class="mem-var"><span class="mem-name">let a =</span><span class="mem-val prim">10</span></div>
+                    <div class="mem-var"><span class="mem-name">let b = a</span><span class="mem-val prim">10</span></div>
+                    <div class="mem-arrow-note">b gets its own copy ✅</div>
+                </div>
+                <div class="mem-demo-row">
+                    <button class="mem-btn" id="stack-demo-btn">Demo: Change b</button>
+                    <code id="stack-result" class="mem-result"></code>
+                </div>
+            </div>
+
+            <div class="mem-scene heap-scene">
+                <h3 class="mem-scene-title">🗄️ Heap Memory (References)</h3>
+                <div class="mem-diagram" id="heap-diagram">
+                    <div class="mem-var"><span class="mem-name">let obj1 =</span><span class="mem-val ref-val">{ name: "Alice" }</span></div>
+                    <div class="mem-var"><span class="mem-name">let obj2 = obj1</span><span class="mem-val ref-ptr">→ same address</span></div>
+                    <div class="mem-arrow-note warning">Both point to same memory ⚠️</div>
+                </div>
+                <div class="mem-demo-row">
+                    <button class="mem-btn" id="heap-demo-btn">Demo: Mutate obj2</button>
+                    <code id="heap-result" class="mem-result"></code>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-box-header">
+                <span class="live-dot"></span> Deep Copy vs Shallow Copy
+            </div>
+            <div class="demo-box-body">
+                <div class="copy-methods">
+                    <button class="copy-method-btn active" data-method="spread">Spread {...}</button>
+                    <button class="copy-method-btn" data-method="assign">Object.assign()</button>
+                    <button class="copy-method-btn" data-method="json">JSON (deep)</button>
+                </div>
+                <div class="demo-output" id="copy-output"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── QUIRKS ─────────────────────────────────────────── -->
+<section class="section alt-bg" id="quirks">
+    <div class="section-inner">
+        <div class="section-label">06 / Quirks & Built-ins</div>
+        <h2 class="section-heading">JavaScript Surprises</h2>
+        <p class="section-sub">JS has some unique behaviors that often surprise newcomers.</p>
+
+        <div class="quirks-grid">
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">⬇️</div>
+                <h3>Math.floor()</h3>
+                <p>Always rounds down to the nearest integer — even for negatives.</p>
+                <div class="quirk-demo">
+                    <input type="number" id="floor-input" class="demo-input small" placeholder="4.7" step="0.01">
+                    <button class="demo-btn small" id="floor-btn">Floor it</button>
+                    <div class="demo-output small" id="floor-output"></div>
+                </div>
+            </div>
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">🦄</div>
+                <h3>typeof null === "object"</h3>
+                <p>A famous bug from 1995 that was never fixed for backwards compatibility.</p>
+                <pre class="inline-code"><code><span class="kw">typeof</span> <span class="val">null</span>; <span class="cm">// "object" 🤯</span>
+<span class="kw">typeof</span> <span class="fn">function</span>(){}; <span class="cm">// "function"</span>
+<span class="kw">typeof</span> []; <span class="cm">// "object"</span></code></pre>
+            </div>
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">🔢</div>
+                <h3>== vs ===</h3>
+                <p>Double equals coerces types. Triple equals is strict — no coercion.</p>
+                <pre class="inline-code"><code><span class="val">0</span> <span class="op">==</span>  <span class="str">""</span>  <span class="cm">// true 😱</span>
+<span class="val">0</span> <span class="op">===</span> <span class="str">""</span>  <span class="cm">// false ✅</span>
+<span class="kw">null</span> <span class="op">==</span> <span class="kw">undefined</span> <span class="cm">// true</span></code></pre>
+            </div>
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">🔤</div>
+                <h3>String Coercion</h3>
+                <p>The + operator converts numbers to strings when mixed with strings.</p>
+                <pre class="inline-code"><code><span class="str">"5"</span> <span class="op">+</span> <span class="val">3</span>   <span class="cm">// "53" (concat)</span>
+<span class="str">"5"</span> <span class="op">-</span> <span class="val">3</span>   <span class="cm">// 2 (math)</span>
+<span class="val">1</span> <span class="op">+</span> <span class="val">2</span> <span class="op">+</span> <span class="str">"3"</span> <span class="cm">// "33"</span></code></pre>
+            </div>
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">📶</div>
+                <h3>Hoisting</h3>
+                <p>var declarations and function declarations are "hoisted" to the top of their scope.</p>
+                <pre class="inline-code"><code><span class="fn">sayHi</span>(); <span class="cm">// Works! ✅</span>
+<span class="kw">function</span> <span class="fn">sayHi</span>() { <span class="cm">/* ... */</span> }
+
+<span class="fn">sayBye</span>(); <span class="cm">// TypeError ❌</span>
+<span class="kw">const</span> <span class="fn">sayBye</span> = () => {};</code></pre>
+            </div>
+
+            <div class="quirk-card" data-aos>
+                <div class="quirk-icon">⚡</div>
+                <h3>Single Threaded</h3>
+                <p>JS runs on one thread but uses the Event Loop for non-blocking async operations.</p>
+                <div class="event-loop-mini">
+                    <div class="el-box">Call Stack</div>
+                    <div class="el-arrow">→</div>
+                    <div class="el-box">Web APIs</div>
+                    <div class="el-arrow">→</div>
+                    <div class="el-box">Task Queue</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CONDITIONALS & LOOPS ─────────────────────────── -->
+<section class="section" id="conditionals">
+    <div class="section-inner">
+        <div class="section-label">07 / Control Flow</div>
+        <h2 class="section-heading">Conditionals &amp; Loops</h2>
+        <p class="section-sub">Control what runs, when it runs, and how many times it runs.</p>
+
+        <!-- Sub-tabs: Conditionals | Loops -->
+        <div class="cf-subnav">
+            <button class="cf-subnav-btn active" data-group="conditionals">🔀 Conditionals</button>
+            <button class="cf-subnav-btn" data-group="loops">🔁 Loops</button>
+        </div>
+
+        <!-- CONDITIONALS group -->
+        <div class="cf-group" id="cf-group-conditionals">
+            <div class="fn-tabs" id="cond-tabs">
+                <button class="fn-tab active" data-ctab="if-else">if / else</button>
+                <button class="fn-tab" data-ctab="ternary">Ternary</button>
+                <button class="fn-tab" data-ctab="switch">switch</button>
+                <button class="fn-tab" data-ctab="nullish">?? &amp; ||</button>
+            </div>
+            <div class="fn-content" id="cond-content"></div>
+
+            <!-- Conditional Playground -->
+            <div class="demo-box" style="margin-top:2rem">
+                <div class="demo-box-header">
+                    <span class="live-dot"></span> Conditional Playground
+                </div>
+                <div class="demo-box-body">
+                    <p style="color:var(--muted);font-size:.875rem;margin-bottom:1rem">Enter a value and choose how to evaluate it:</p>
+                    <div class="cond-playground">
+                        <input type="text" id="cond-input" class="demo-input" placeholder='42, "hello", null, undefined, true...'>
+                        <div class="cond-op-btns">
+                            <button class="cond-op-btn active" data-op="if">if / else</button>
+                            <button class="cond-op-btn" data-op="ternary">Ternary</button>
+                            <button class="cond-op-btn" data-op="nullish">??</button>
+                            <button class="cond-op-btn" data-op="or">||</button>
+                        </div>
+                        <button class="demo-btn" id="cond-run-btn">▶ Evaluate</button>
+                    </div>
+                    <div class="demo-output" id="cond-output">
+                        <span class="output-placeholder">// result will appear here</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOOPS group -->
+        <div class="cf-group hidden" id="cf-group-loops">
+            <div class="fn-tabs" id="loop-tabs">
+                <button class="fn-tab active" data-ltab="for">for</button>
+                <button class="fn-tab" data-ltab="while">while</button>
+                <button class="fn-tab" data-ltab="dowhile">do...while</button>
+                <button class="fn-tab" data-ltab="forof">for...of</button>
+                <button class="fn-tab" data-ltab="forin">for...in</button>
+                <button class="fn-tab" data-ltab="foreach">forEach</button>
+            </div>
+            <div class="fn-content" id="loop-content"></div>
+
+            <!-- Loop Visualizer -->
+            <div class="demo-box" style="margin-top:2rem">
+                <div class="demo-box-header">
+                    <span class="live-dot"></span> Loop Visualizer
+                </div>
+                <div class="demo-box-body">
+                    <div class="loop-viz-controls">
+                        <div class="loop-control-row">
+                            <label class="loop-label">Loop Type</label>
+                            <div class="loop-type-btns">
+                                <button class="loop-type-btn active" data-loop="for">for</button>
+                                <button class="loop-type-btn" data-loop="while">while</button>
+                                <button class="loop-type-btn" data-loop="forof">for...of</button>
+                            </div>
+                        </div>
+                        <div class="loop-control-row">
+                            <label class="loop-label">Iterations</label>
+                            <input type="range" id="loop-count" min="1" max="10" value="5" class="loop-range">
+                            <span id="loop-count-val" class="loop-range-val">5</span>
+                        </div>
+                        <button class="demo-btn" id="loop-run-btn">▶ Run Loop</button>
+                    </div>
+                    <div class="loop-viz-output">
+                        <div class="loop-code-preview" id="loop-code-preview"></div>
+                        <div class="loop-steps" id="loop-steps">
+                            <div class="loop-steps-placeholder">Press Run Loop to animate ▶</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ─── OPERATORS ──────────────────────────────────────── -->
+<section class="section alt-bg" id="operators">
+    <div class="section-inner">
+        <div class="section-label">08 / Operators</div>
+        <h2 class="section-heading">JavaScript Operators</h2>
+        <p class="section-sub">The symbols that perform actions on values — math, comparison, logic, and more.</p>
+
+        <!-- Category tabs -->
+        <div class="fn-tabs" id="op-tabs">
+            <button class="fn-tab active" data-optab="arithmetic">➕ Arithmetic</button>
+            <button class="fn-tab" data-optab="assignment">🔧 Assignment</button>
+            <button class="fn-tab" data-optab="comparison">⚖️ Comparison</button>
+            <button class="fn-tab" data-optab="logical">🔗 Logical</button>
+            <button class="fn-tab" data-optab="string">🔤 String</button>
+            <button class="fn-tab" data-optab="typeof">🔍 typeof &amp; instanceof</button>
+            <button class="fn-tab" data-optab="spread">✨ Spread &amp; Rest</button>
+        </div>
+        <div class="fn-content" id="op-content"></div>
+
+        <!-- Operator Reference Cards -->
+        <div class="op-ref-grid" id="op-ref-grid"></div>
+
+        <!-- Interactive demos row -->
+        <div class="op-demos-row">
+
+            <!-- Arithmetic Sandbox -->
+            <div class="demo-box op-demo-box" id="op-arithmetic-demo">
+                <div class="demo-box-header">
+                    <span class="live-dot"></span> Arithmetic Sandbox
+                </div>
+                <div class="demo-box-body">
+                    <div class="arith-inputs">
+                        <input type="number" id="arith-a" class="demo-input" value="10" style="max-width:90px">
+                        <select id="arith-op" class="demo-select">
+                            <option>+</option>
+                            <option>-</option>
+                            <option>*</option>
+                            <option>/</option>
+                            <option>%</option>
+                            <option>**</option>
+                        </select>
+                        <input type="number" id="arith-b" class="demo-input" value="3" style="max-width:90px">
+                        <button class="demo-btn" id="arith-btn">=</button>
+                    </div>
+                    <div class="demo-output" id="arith-output">
+                        <span class="output-placeholder">// result</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Truth Table -->
+            <div class="demo-box op-demo-box" id="op-compare-demo">
+                <div class="demo-box-header">
+                    <span class="live-dot"></span> Comparison Explorer
+                </div>
+                <div class="demo-box-body">
+                    <div class="demo-row">
+                        <input type="text" id="cmp-a" class="demo-input" placeholder="Left: 5" style="max-width:120px">
+                        <input type="text" id="cmp-b" class="demo-input" placeholder='Right: "5"' style="max-width:120px">
+                        <button class="demo-btn" id="cmp-btn">Compare All</button>
+                    </div>
+                    <div class="cmp-table-wrap">
+                        <table class="cmp-table" id="cmp-table">
+                            <thead><tr><th>Operator</th><th>Expression</th><th>Result</th></tr></thead>
+                            <tbody id="cmp-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logical Evaluator -->
+            <div class="demo-box op-demo-box" id="op-logical-demo">
+                <div class="demo-box-header">
+                    <span class="live-dot"></span> Logical Operator Lab
+                </div>
+                <div class="demo-box-body">
+                    <div class="demo-row">
+                        <input type="text" id="log-a" class="demo-input" placeholder="a: true" style="max-width:120px">
+                        <input type="text" id="log-b" class="demo-input" placeholder="b: false" style="max-width:120px">
+                        <button class="demo-btn" id="log-btn">Evaluate</button>
+                    </div>
+                    <div class="log-results" id="log-results">
+                        <span class="output-placeholder">// results appear here</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ─── MATH FUNCTIONS ──────────────────────────────────── -->
+<section class="section" id="math">
+    <div class="section-inner">
+        <div class="section-label">09 / Math Object</div>
+        <h2 class="section-heading">Math Functions in JS</h2>
+        <p class="section-sub">The built-in <code>Math</code> object gives you constants and functions for mathematical operations — no import needed.</p>
+
+        <!-- Constants strip -->
+        <div class="math-constants" id="math-constants"></div>
+
+        <!-- Category tabs -->
+        <div class="fn-tabs" id="math-tabs">
+            <button class="fn-tab active" data-mtab="rounding">🔢 Rounding</button>
+            <button class="fn-tab" data-mtab="minmax">📊 Min / Max</button>
+            <button class="fn-tab" data-mtab="power">⚡ Power &amp; Roots</button>
+            <button class="fn-tab" data-mtab="trig">📐 Trigonometry</button>
+            <button class="fn-tab" data-mtab="random">🎲 Random</button>
+            <button class="fn-tab" data-mtab="misc">🧮 Misc</button>
+        </div>
+        <div class="fn-content" id="math-content"></div>
+
+        <!-- Method quick-ref grid -->
+        <div class="math-method-grid" id="math-method-grid"></div>
+
+        <!-- Demos row -->
+        <div class="math-demos-row">
+
+            <!-- Live Calculator -->
+            <div class="demo-box">
+                <div class="demo-box-header"><span class="live-dot"></span> Live Math Calculator</div>
+                <div class="demo-box-body">
+                    <p style="color:var(--muted);font-size:.875rem;margin-bottom:.75rem">Select a method and enter a value:</p>
+                    <div class="math-calc-controls">
+                        <select id="math-method-sel" class="demo-select" style="flex:1;text-align:left">
+                            <option value="abs">Math.abs(x)</option>
+                            <option value="floor">Math.floor(x)</option>
+                            <option value="ceil">Math.ceil(x)</option>
+                            <option value="round">Math.round(x)</option>
+                            <option value="trunc">Math.trunc(x)</option>
+                            <option value="sqrt">Math.sqrt(x)</option>
+                            <option value="cbrt">Math.cbrt(x)</option>
+                            <option value="log">Math.log(x)</option>
+                            <option value="log2">Math.log2(x)</option>
+                            <option value="log10">Math.log10(x)</option>
+                            <option value="sin">Math.sin(x)</option>
+                            <option value="cos">Math.cos(x)</option>
+                            <option value="tan">Math.tan(x)</option>
+                            <option value="sign">Math.sign(x)</option>
+                        </select>
+                        <input type="number" id="math-calc-input" class="demo-input" value="-4.7" step="0.1" style="max-width:110px">
+                        <button class="demo-btn" id="math-calc-btn">= ?</button>
+                    </div>
+                    <div class="demo-output" id="math-calc-output"><span class="output-placeholder">// result appears here</span></div>
+                </div>
+            </div>
+
+            <!-- Random Number Visualizer -->
+            <div class="demo-box">
+                <div class="demo-box-header"><span class="live-dot"></span> Random Number Visualizer</div>
+                <div class="demo-box-body">
+                    <div class="rand-controls">
+                        <div class="rand-row">
+                            <label class="loop-label">Min</label>
+                            <input type="number" id="rand-min" class="demo-input" value="1" style="max-width:80px">
+                            <label class="loop-label" style="width:auto">Max</label>
+                            <input type="number" id="rand-max" class="demo-input" value="100" style="max-width:80px">
+                            <label class="loop-label" style="width:auto">Count</label>
+                            <input type="number" id="rand-count" class="demo-input" value="10" min="1" max="30" style="max-width:70px">
+                        </div>
+                        <button class="demo-btn" id="rand-btn">🎲 Generate</button>
+                    </div>
+                    <div class="rand-viz" id="rand-viz"></div>
+                    <div class="rand-formula" id="rand-formula"></div>
+                </div>
+            </div>
+
+            <!-- Rounding Comparison -->
+            <div class="demo-box">
+                <div class="demo-box-header"><span class="live-dot"></span> Rounding Comparison</div>
+                <div class="demo-box-body">
+                    <div class="demo-row">
+                        <input type="number" id="round-input" class="demo-input" placeholder="e.g. 4.5" step="0.1">
+                        <button class="demo-btn" id="round-btn">Compare</button>
+                    </div>
+                    <div class="round-table" id="round-table"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-logo">JS<span class="accent">.</span></div>
+        <p>Built with ❤️ using vanilla HTML, CSS & JavaScript</p>
+        <p class="footer-sub">No frameworks. No libraries. Just the language itself.</p>
+    </div>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
