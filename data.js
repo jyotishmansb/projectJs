@@ -756,7 +756,19 @@ export const varPanels = {
             'Can be re-declared and re-assigned freely',
             'Leaks out of <code>if</code>, <code>for</code>, and other blocks'
         ],
-        code: `<span class="cm">// var is FUNCTION-scoped, not block-scoped</span>\n<span class="kw">function</span> <span class="fn">demo</span>() {\n  <span class="kw">if</span> (<span class="kw">true</span>) {\n    <span class="kw">var</span> x = <span class="val">10</span>; <span class="cm">// leaks out of the if block!</span>\n  }\n  <span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 10 — still accessible! 😱</span>\n}\n\n<span class="cm">// Hoisting — var is hoisted as undefined</span>\n<span class="fn">console</span>.<span class="fn">log</span>(y); <span class="cm">// undefined (not an error!)</span>\n<span class="kw">var</span> y = <span class="val">5</span>;\n\n<span class="cm">// Re-declaration is allowed (confusing!)</span>\n<span class="kw">var</span> name = <span class="str">"Alice"</span>;\n<span class="kw">var</span> name = <span class="str">"Bob"</span>; <span class="cm">// No error ❌</span>`
+        code: `<span class="cm">// var is FUNCTION-scoped, not block-scoped</span><br>
+         <span class="kw">function</span> <span class="fn">demo</span>()
+          { <br>  <span class="kw">if</span> (<span class="kw">true</span>) {<br>   
+         <span class="kw">var</span> x = <span class="val">10</span>; <span class="cm">
+          leaks out of the if block!</span><br> }<br>
+          <span class="fn">console</span>.<span class="fn">log</span>(x); 
+         <span class="cm">// 10 — still accessible! 😱</span> <br>}<br><span class="cm">
+          Hoisting — var is hoisted as undefined</span> <br> <span class="fn">console</span>.<span class="fn">log</span>(y);
+          <span class="cm">// undefined (not an error!)</span><br><span class="kw">var</span>
+         y = <span class="val">5</span>;<br><span class="cm">// Re-declaration is allowed (confusing!)</span><br>
+        <span class="kw">var</span>
+         name = <span class="str">"Alice"</span>;<br><span class="kw">var</span>
+          name = <span class="str">"Bob"</span>; <span class="cm">// No error ❌</span>`
     },
     let: {
         title: 'let — The Modern Variable',
@@ -767,7 +779,14 @@ export const varPanels = {
             'Can be re-assigned, but NOT re-declared in the same scope',
             'Great for loop counters and values that will change'
         ],
-        code: `<span class="cm">// Block scope — stays inside { }</span>\n<span class="kw">if</span> (<span class="kw">true</span>) {\n  <span class="kw">let</span> score = <span class="val">100</span>;\n  <span class="fn">console</span>.<span class="fn">log</span>(score); <span class="cm">// 100 ✅</span>\n}\n<span class="cm">// console.log(score); ❌ ReferenceError</span>\n\n<span class="cm">// Re-assign is fine</span>\n<span class="kw">let</span> count = <span class="val">0</span>;\ncount = <span class="val">1</span>; <span class="cm">// ✅ allowed</span>\n\n<span class="cm">// Re-declare is NOT allowed</span>\n<span class="cm">// let count = 5; ❌ SyntaxError</span>\n\n<span class="cm">// TDZ — Temporal Dead Zone</span>\n<span class="cm">// console.log(a); ❌ ReferenceError</span>\n<span class="kw">let</span> a = <span class="val">42</span>;`
+        code: `<span class="cm">// Block scope — stays inside { }</span> <br>
+         <span class="kw">if</span> (<span class="kw">true</span>) {<br>
+          <span class="kw">let</span> score = <span class="val">100</span>; <br>  <span class="fn">console</span>.<span class="fn">log</span>(score); <span class="cm">// 100 ✅</span>} <br><span class="cm"> console.log(score); ❌ ReferenceError</span> <br>
+           <span class="cm">// Re-assign is fine</span><br><span class="kw">let</span> count = <span class="val">0</span>;<br>
+           count = <span class="val">1</span>; <span class="cm">// ✅ allowed</span><br>
+           <span class="cm">// Re-declare is NOT allowed</span><br><span class="cm"> let count = 5; ❌ SyntaxError</span><br>
+           <span class="cm">// TDZ — Temporal Dead Zone</span><br><span class="cm"> console.log(a); ❌ ReferenceError</span><br>
+           <span class="kw">let</span> a = <span class="val">42</span>;`
     },
     const: {
         title: 'const — Constant Binding',
@@ -778,7 +797,17 @@ export const varPanels = {
             '<strong>Objects &amp; Arrays</strong> declared with <code>const</code> are still mutable — the reference is locked, not the content',
             'Use <code>const</code> by default; only switch to <code>let</code> when you need to reassign'
         ],
-        code: `<span class="cm">// Must initialise immediately</span>\n<span class="kw">const</span> PI = <span class="val">3.14159</span>;\n\n<span class="cm">// Re-assignment throws TypeError</span>\n<span class="cm">// PI = 3; ❌ TypeError</span>\n\n<span class="cm">// Objects are STILL mutable</span>\n<span class="kw">const</span> user = { name: <span class="str">"Alice"</span> };\nuser.name = <span class="str">"Bob"</span>; <span class="cm">// ✅ OK — mutating contents</span>\n<span class="cm">// user = {}; ❌ TypeError — rebinding blocked</span>\n\n<span class="cm">// Arrays too</span>\n<span class="kw">const</span> nums = [<span class="val">1</span>, <span class="val">2</span>, <span class="val">3</span>];\nnums.<span class="fn">push</span>(<span class="val">4</span>); <span class="cm">// ✅ OK</span>\n<span class="cm">// nums = []; ❌ TypeError</span>`
+        code: `<span class="cm">// Must initialise immediately</span><br>
+         <span class="kw">const</span> PI = <span class="val">3.14159</span>;<br><span class="cm">// Re-assignment throws TypeError</span><br>
+        <span class="cm"> PI = 3; ❌ TypeError</span><br>
+         <span class="cm">// Objects are STILL mutable</span><br>
+         <span class="kw">const</span> user = { name: <span class="str">"Alice"</span> }; <br>
+         user.name = <span class="str">"Bob"</span>; <span class="cm">// ✅ OK — mutating contents</span><br>
+          <span class="cm"> user = {}; ❌ TypeError — rebinding blocked</span><br>
+          <span class="cm">// Arrays too</span><br><span class="kw">const</span>
+            nums = [<span class="val">1</span>, <span class="val">2</span>, <span class="val">3</span>]; <br>
+           nnums.<span class="fn">push</span>(<span class="val">4</span>); <span class="cm">// ✅ OK</span><br>
+           <span class="cm">// nums = []; ❌ TypeError</span>`
     },
     compare: {
         title: 'var vs let vs const',
@@ -789,7 +818,18 @@ export const varPanels = {
             '<strong>Re-declare:</strong> <code>var</code> → ✅ allowed &nbsp; <code>let</code>/<code>const</code> → ❌ SyntaxError',
             '<strong>Re-assign:</strong> <code>var</code>/<code>let</code> → ✅ allowed &nbsp; <code>const</code> → ❌ TypeError'
         ],
-        code: `<span class="cm">// ─── SCOPE ───────────────────────────</span>\n{\n  <span class="kw">var</span>   x = <span class="val">1</span>; <span class="cm">// leaks out of block!</span>\n  <span class="kw">let</span>   y = <span class="val">2</span>; <span class="cm">// block-scoped ✅</span>\n  <span class="kw">const</span> z = <span class="val">3</span>; <span class="cm">// block-scoped ✅</span>\n}\n<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 1 (leaked!)</span>\n<span class="cm">// y and z → ReferenceError ✅</span>\n\n<span class="cm">// ─── HOISTING ─────────────────────────</span>\n<span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined (var)</span>\n<span class="cm">// console.log(b); ❌ TDZ Error (let)</span>\n<span class="kw">var</span>   a = <span class="val">10</span>;\n<span class="kw">let</span>   b = <span class="val">20</span>;\n<span class="kw">const</span> c = <span class="val">30</span>;`
+        code: `<span class="cm">// ─── SCOPE ───────────────────────────</span><br>
+         { <span class="kw">var</span>   x = <span class="val">1</span>; <span class="cm">// leaks out of block!</span><br>
+            <span class="kw">let</span>   y = <span class="val">2</span>; <span class="cm">// block-scoped ✅</span><br>
+            <span class="kw">const</span> z = <span class="val">3</span>; <span class="cm">// block-scoped ✅</span>}<br>
+             <span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 1 (leaked!)</span><br>
+             <span class="cm">// y and z → ReferenceError ✅</span><br>
+             <span class="cm">// ─── HOISTING ─────────────────────────</span><br>
+            <span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined (var)</span><br>
+            <span class="cm">// console.log(b); ❌ TDZ Error (let)</span><br>
+            <span class="kw">var</span>   a = <span class="val">10</span>;<br>
+             <span class="kw">let</span>   b = <span class="val">20</span>;<br>
+             <span class="kw">const</span> c = <span class="val">30</span>;`
     },
     scope: {
         title: 'Scope Deep Dive',

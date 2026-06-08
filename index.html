@@ -64,7 +64,11 @@
             >
           </li>
           <li><a href="#math" class="nav-link" data-section="math">Math</a></li>
-          <li><a href="#variables" class="nav-link" data-section="variables">Variables</a></li>
+          <li>
+            <a href="#variables" class="nav-link" data-section="variables"
+              >Variables</a
+            >
+          </li>
         </ul>
         <div class="progress-ring-container">
           <svg class="progress-ring" width="40" height="40">
@@ -139,28 +143,29 @@
               <p>
                 Netscape hired Brendan Eich to create a scripting language for
                 browsers. He wrote the first version in just
-                <strong>10 days</strong>.<br> It was made for noob coders,it was made beginner-friendly.<br> First JavaScript engine that executed JavaScript code was implemented largely in C/C++ 
-                <br> 
-              <strong style="line-height: 3;">  Your JavaScript Code  
-        →  
-JavaScript Engine (a C++ program)
-          →
-Machine Code
-</strong>
-<br> 
+                <strong>10 days</strong>.<br />
+                It was made for noob coders,it was made beginner-friendly.<br />
+                First JavaScript engine that executed JavaScript code was
+                implemented largely in C/C++
+                <br />
+                <strong style="line-height: 3">
+                  Your JavaScript Code → JavaScript Engine (a C++ program) →
+                  Machine Code
+                </strong>
+                <br />
 
-<code> let x = 10 + 20; <br>
-console.log(x);</code> <br>
-The JavaScript engine (a C++ program) reads this code, processes it, and executes it.
-<br>
+                <code>
+                  let x = 10 + 20; <br />
+                  console.log(x);</code
+                >
+                <br />
+                The JavaScript engine (a C++ program) reads this code, processes
+                it, and executes it.
+                <br />
 
-So when people say:
-
-"JavaScript runs in the browser"
-
-what's actually happening is:
-
-"A JavaScript engine written mostly in C++ is running your JavaScript code."
+                So when people say: "JavaScript runs in the browser" what's
+                actually happening is: "A JavaScript engine written mostly in
+                C++ is running your JavaScript code."
               </p>
             </div>
           </div>
@@ -246,7 +251,8 @@ what's actually happening is:
             <div class="type-category">
               <h3 class="type-cat-title reference">🔶 Non Primitive Types</h3>
               <p class="type-cat-desc">
-                Stored by <strong>reference</strong>. Copied by reference. Variables hold a memory address to the data, not the data itself
+                Stored by <strong>reference</strong>. Copied by reference.
+                Variables hold a memory address to the data, not the data itself
               </p>
               <div class="type-tags">
                 <span class="type-tag ref" data-type="object">Object</span>
@@ -280,15 +286,16 @@ what's actually happening is:
             style="color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem"
           >
             When you assign a variable to another, the behavior depends entirely
-            on its type.<br> Primitives are copied completely (by value), while
-            Non-Primitives share the same memory address (by reference).
+            on its type.<br />
+            Primitives are copied completely (by value), while Non-Primitives
+            share the same memory address (by reference).
           </p>
           <div class="two-col">
             <!-- By Value -->
             <div class="fn-panel active" style="margin: 0; width: 100%">
               <div class="fn-desc" style="padding-bottom: 0.5rem">
                 <h4 style="color: var(--a5); margin-bottom: 0.5rem">
-                  🔷 Primitive: <br>Copy by Value
+                  🔷 Primitive: <br />Copy by Value
                 </h4>
                 <p style="font-size: 0.85rem">
                   Changing the copy does <strong>not</strong> affect the
@@ -297,11 +304,11 @@ what's actually happening is:
               </div>
               <div class="fn-code-block" style="margin: 0; padding: 1rem">
                 <code>
-                    <span class="kw">let</span> a = <span class="val">10</span>;
-                    <br>
+                  <span class="kw">let</span> a = <span class="val">10</span>;
+                  <br />
                   <span class="kw">let</span> b = a;
                   <span class="cm">// b gets a fresh copy of 10</span>
-<br>
+                  <br />
                   b = <span class="val">20</span>;
                   <span class="cm">// only b changes</span>
 
@@ -317,7 +324,8 @@ what's actually happening is:
             <div class="fn-panel active" style="margin: 0; width: 100%">
               <div class="fn-desc" style="padding-bottom: 0.5rem">
                 <h4 style="color: var(--a1); margin-bottom: 0.5rem">
-                  🔶 Non-Primitive:<br> Copy by Reference
+                  🔶 Non-Primitive:<br />
+                  Copy by Reference
                 </h4>
                 <p style="font-size: 0.85rem">
                   Both variables point to the <strong>same</strong> underlying
@@ -331,7 +339,7 @@ what's actually happening is:
                   <span class="str">"Alice"</span> };
                   <span class="kw">let</span> obj2 = obj1;
                   <span class="cm">// obj2 points to obj1's memory</span>
-                  <br>
+                  <br />
 
                   obj2.<span class="str">name</span> =
                   <span class="str">"Bob"</span>;
@@ -453,14 +461,15 @@ what's actually happening is:
       </div>
     </section>
 
-<!-- ─── VARIABLE DECLARATION ────────────────────────── -->
+    <!-- ─── VARIABLE DECLARATION ────────────────────────── -->
     <section class="section alt-bg" id="variables">
       <div class="section-inner">
         <div class="section-label">04 / Variables</div>
         <h2 class="section-heading">Variable Declaration</h2>
         <p class="section-sub">
-          Three keywords — <code>var</code>, <code>let</code>, <code>const</code> — each with distinct
-          scoping rules, hoisting behaviour, and reassignment rules.
+          Three keywords — <code>var</code>, <code>let</code>,
+          <code>const</code> — each with distinct scoping rules, hoisting
+          behaviour, and reassignment rules.
         </p>
 
         <!-- Keyword tabs -->
@@ -530,14 +539,16 @@ what's actually happening is:
                 id="var-sandbox"
                 class="sandbox-input"
                 spellcheck="false"
-              >// Experiment with var, let, const!
+              >
+// Experiment with var, let, const!
 let counter = 0;
 counter = counter + 1;
 
 const name = "JS Learner";
 console.log(`Hello, ${name}! Count: ${counter}`);
 
-// Try: const x = 5; x = 10;  → TypeError</textarea>
+// Try: const x = 5; x = 10;  → TypeError</textarea
+              >
               <button class="demo-btn run-btn" id="var-run">▶ Run</button>
             </div>
             <div class="demo-output" id="var-output">
@@ -548,29 +559,26 @@ console.log(`Hello, ${name}! Count: ${counter}`);
       </div>
     </section>
 
-
     <!-- ─── FUNCTIONS ─────────────────────────────────────── -->
     <section class="section alt-bg" id="functions">
       <div class="section-inner">
         <div class="section-label">05 / Functions</div>
         <h2 class="section-heading">Functions are Data type in JS</h2>
         <p class="section-sub">
-          In JS, functions are objects- They can be stored in variables, passed to other functions, and returned from functions just like any other value.
-        
+          In JS, functions are objects- They can be stored in variables, passed
+          to other functions, and returned from functions just like any other
+          value.
         </p>
 
-<p>You can store a function in a variable</p>
-<code> 
-  // Storing a function <br>
-const sayHello = function() { <br>
-  console.log("Hello there!");
-};
-<br>
-// Now you can use the variable to run the function <br>
-sayHello();
-</code>
-
-
+        <p>You can store a function in a variable</p>
+       <pre><code>
+          // Storing a function <br />
+          const sayHello = function() { <br />
+          console.log("Hello there!"); };
+          <br />
+          // Now you can use the variable to run the function <br />
+          sayHello();
+        </code>  </pre>
 
         <div class="fn-tabs">
           <button class="fn-tab active" data-tab="declaration">
@@ -612,12 +620,7 @@ greet("JavaScript Learner");</textarea
       </div>
     </section>
 
-    
-    
- 
-
-
- <!-- ─── OPERATORS ──────────────────────────────────────── -->
+    <!-- ─── OPERATORS ──────────────────────────────────────── -->
     <section class="section alt-bg" id="operators">
       <div class="section-inner">
         <div class="section-label">06 / Operators</div>
@@ -757,9 +760,6 @@ greet("JavaScript Learner");</textarea
       </div>
     </section>
 
-
-
-
     <!-- ─── CONDITIONALS & LOOPS ─────────────────────────── -->
     <section class="section" id="conditionals">
       <div class="section-inner">
@@ -888,8 +888,6 @@ greet("JavaScript Learner");</textarea
         </div>
       </div>
     </section>
-
-   
 
     <!-- ─── MATH FUNCTIONS ──────────────────────────────────── -->
     <section class="section" id="math">
@@ -1038,8 +1036,6 @@ greet("JavaScript Learner");</textarea
         </div>
       </div>
     </section>
-
-   
 
     <!-- Footer -->
     <footer class="site-footer">
