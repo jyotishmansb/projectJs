@@ -66,29 +66,29 @@ export const fnPanels = {
         title: 'Function Declaration',
         desc: 'The classic way. Defined with the <code>function</code> keyword. <strong>Hoisted</strong> — you can call it before its definition in code.',
         bullets: ['Available throughout its scope (hoisted)', 'Has its own <code>this</code> binding', 'Can be recursive by name'],
-        code: `<span class="cm">// Can be called BEFORE definition</span>
-<span class="fn">greet</span>(<span class="str">"World"</span>); <span class="cm">// ✅ Works!</span>
+        code: `<span class="cm">// Can be called BEFORE definition</span><br>
+<span class="fn">greet</span>(<span class="str">"World"</span>); <span class="cm">// ✅ Works!</span> <br>
 
-<span class="kw">function</span> <span class="fn">greet</span>(name) {
-  <span class="kw">return</span> <span class="str">\`Hello, \${name}!\`</span>;
-}
+<span class="kw">function</span> <span class="fn">greet</span>(name) { <br>
+  <span class="kw">return</span> <span class="str">\`Hello, \${name}!\`</span>; <br>
+} <br>
 
-<span class="cm">// Named — shows in stack traces</span>
+<span class="cm">// Named — shows in stack traces</span> <br>
 <span class="fn">greet</span>(<span class="str">"JS"</span>); <span class="cm">// "Hello, JS!"</span>`
     },
     expression: {
         title: 'Function Expression',
         desc: 'A function assigned to a variable. <strong>Not hoisted</strong> — must be defined before use. Can be anonymous or named.',
         bullets: ['Not hoisted — order matters', 'Can be anonymous or named', 'Useful for conditional function assignment'],
-        code: `<span class="cm">// NOT hoisted — this would fail:</span>
-<span class="cm">// greet(); ❌ ReferenceError</span>
+        code: `<span class="cm">// NOT hoisted — this would fail:</span> <br>
+<span class="cm"> greet(); ❌ ReferenceError</span> <br>
 
-<span class="kw">const</span> greet = <span class="kw">function</span>(name) {
+<span class="kw">const</span> greet = <span class="kw">function</span>(name) { <br>
   <span class="kw">return</span> <span class="str">\`Hi, \${name}!\`</span>;
 };
-
-<span class="cm">// Named function expression:</span>
-<span class="kw">const</span> factorial = <span class="kw">function</span> <span class="fn">fact</span>(n) {
+<br>
+<span class="cm">// Named function expression:</span> <br>
+<span class="kw">const</span> factorial = <span class="kw">function</span> <span class="fn">fact</span>(n) { <br>
   <span class="kw">return</span> n <= <span class="val">1</span> ? <span class="val">1</span> : n * <span class="fn">fact</span>(n - <span class="val">1</span>);
 };`
     },
