@@ -746,6 +746,152 @@ export const mathMethods = {
 
 // ── Variable Declaration Section Data ────────────────────
 
+// ── JS Weirdness Section Data ────────────────────────────
+
+export const weirdPanels = {
+    coercion: {
+        title: 'Type Coercion Madness',
+        desc: 'JavaScript silently converts types when operators are used with mismatched types. The <code>+</code> operator is especially chaotic — it concatenates with strings but adds with numbers. This implicit coercion is the root of most JS "wat" moments.',
+        bullets: [
+            '<code>+</code> with a string → concatenation wins, everything becomes a string',
+            '<code>-</code>, <code>*</code>, <code>/</code> → always try to convert to numbers',
+            '<code>[] + []</code> is <code>""</code> — arrays coerce to strings first, then concatenate',
+            '<code>{} + []</code> behaves differently depending on context (statement vs expression)'
+        ],
+        code: `<span class="cm">// The + operator is chaotic</span><br><span class="str">"5"</span> + <span class="val">3</span>       <span class="cm">// "53"  (string wins)</span><br><span class="str">"5"</span> - <span class="val">3</span>       <span class="cm">// 2     (- forces number)</span><br><span class="str">"5"</span> * <span class="val">3</span>       <span class="cm">// 15    (* forces number)</span><br><br><span class="cm">// Array coercion</span><br>[] + []         <span class="cm">// ""    (two empty strings)</span><br>[] + {}         <span class="cm">// "[object Object]"</span><br>{} + []         <span class="cm">// 0     (parsed as block + [])</span><br><br><span class="cm">// true and false as numbers</span><br><span class="kw">true</span> + <span class="kw">true</span>    <span class="cm">// 2   (1 + 1)</span><br><span class="kw">true</span> + <span class="kw">false</span>   <span class="cm">// 1   (1 + 0)</span><br><span class="val">9</span> + <span class="kw">true</span>      <span class="cm">// 10</span><br><br><span class="cm">// null and undefined</span><br><span class="kw">null</span> + <span class="val">1</span>       <span class="cm">// 1   (null → 0)</span><br><span class="kw">undefined</span> + <span class="val">1</span>  <span class="cm">// NaN (undefined → NaN)</span>`
+    },
+    equality: {
+        title: 'Equality Gotchas',
+        desc: 'The loose equality operator <code>==</code> performs type coercion before comparison, leading to some truly baffling results. This is why <strong>strict equality <code>===</code></strong> is always recommended.',
+        bullets: [
+            '<code>== </code> coerces types before comparing — <code>===</code> does not',
+            '<code>null == undefined</code> is <code>true</code>, but neither equals <code>false</code>',
+            'Empty string, <code>0</code>, and <code>false</code> are all loosely equal to each other',
+            '<code>NaN</code> is not equal to anything — not even itself!'
+        ],
+        code: `<span class="cm">// The equality hall of shame</span><br><span class="val">0</span>  <span class="op">==</span> <span class="str">""</span>        <span class="cm">// true  😱</span><br><span class="val">0</span>  <span class="op">==</span> <span class="str">"0"</span>       <span class="cm">// true  😱</span><br><span class="str">""</span> <span class="op">==</span> <span class="str">"0"</span>       <span class="cm">// false 🤯 (not transitive!)</span><br><br><span class="kw">false</span> <span class="op">==</span> <span class="str">"0"</span>    <span class="cm">// true  😱</span><br><span class="kw">false</span> <span class="op">==</span> <span class="kw">null</span>   <span class="cm">// false</span><br><span class="kw">false</span> <span class="op">==</span> <span class="kw">undefined</span> <span class="cm">// false</span><br><span class="kw">null</span>  <span class="op">==</span> <span class="kw">undefined</span> <span class="cm">// true (special rule!)</span><br><br><span class="cm">// NaN — the loner</span><br><span class="val">NaN</span> <span class="op">===</span> <span class="val">NaN</span>     <span class="cm">// false 🤯</span><br><span class="val">NaN</span> <span class="op">==</span>  <span class="val">NaN</span>     <span class="cm">// false 🤯</span><br>Number.<span class="fn">isNaN</span>(<span class="val">NaN</span>) <span class="cm">// true ✅ (correct check)</span>`
+    },
+    nan: {
+        title: 'NaN & Number Edge Cases',
+        desc: '<code>NaN</code> stands for "Not a Number" — but <code>typeof NaN === "number"</code>. It is the only value in JS that is <strong>not equal to itself</strong>. JavaScript also has some other number quirks worth knowing.',
+        bullets: [
+            '<code>typeof NaN === "number"</code> — a number that is not a number 🤯',
+            '<code>NaN !== NaN</code> — the only value not equal to itself',
+            '<code>0.1 + 0.2 !== 0.3</code> — floating-point precision error',
+            '<code>Infinity</code>, <code>-Infinity</code>, and <code>-0</code> are all valid numbers'
+        ],
+        code: `<span class="cm">// NaN is a "number"</span><br><span class="kw">typeof</span> <span class="val">NaN</span>      <span class="cm">// "number" 🤯</span><br><span class="val">NaN</span> === <span class="val">NaN</span>      <span class="cm">// false</span><br><span class="fn">isNaN</span>(<span class="str">"hello"</span>)  <span class="cm">// true (coerces first!)</span><br>Number.<span class="fn">isNaN</span>(<span class="str">"hello"</span>) <span class="cm">// false ✅</span><br><br><span class="cm">// Floating point</span><br><span class="val">0.1</span> + <span class="val">0.2</span>        <span class="cm">// 0.30000000000000004</span><br><span class="val">0.1</span> + <span class="val">0.2</span> === <span class="val">0.3</span> <span class="cm">// false 😱</span><br><br><span class="cm">// Infinity</span><br><span class="val">1</span> / <span class="val">0</span>            <span class="cm">// Infinity</span><br>-<span class="val">1</span> / <span class="val">0</span>           <span class="cm">// -Infinity</span><br><span class="val">Infinity</span> + <span class="val">1</span>    <span class="cm">// Infinity</span><br><span class="val">Infinity</span> - <span class="val">Infinity</span> <span class="cm">// NaN</span><br><br><span class="cm">// Negative zero</span><br>-<span class="val">0</span> === <span class="val">0</span>         <span class="cm">// true 🤯</span><br>Object.<span class="fn">is</span>(-<span class="val">0</span>, <span class="val">0</span>) <span class="cm">// false ✅</span>`
+    },
+    typeof: {
+        title: 'typeof Lies',
+        desc: 'The <code>typeof</code> operator has some notorious inaccuracies that have persisted since JavaScript\'s creation. The most famous: <code>typeof null === "object"</code> — a bug from 1995 that can never be fixed.',
+        bullets: [
+            '<code>typeof null === "object"</code> — a 30-year-old bug, unfixable for compatibility',
+            '<code>typeof []</code> returns <code>"object"</code> — use <code>Array.isArray()</code> instead',
+            '<code>typeof function(){}</code> returns <code>"function"</code> — but functions are objects',
+            '<code>typeof NaN</code> returns <code>"number"</code> — a number that\'s not a number'
+        ],
+        code: `<span class="cm">// typeof's greatest hits</span><br><span class="kw">typeof</span> <span class="kw">null</span>          <span class="cm">// "object" 🐛 (should be "null")</span><br><span class="kw">typeof</span> []             <span class="cm">// "object" (should be "array")</span><br><span class="kw">typeof</span> <span class="val">NaN</span>           <span class="cm">// "number" (not a number is a number?)</span><br><span class="kw">typeof</span> <span class="kw">undefined</span>     <span class="cm">// "undefined" ✅ (this one is fine)</span><br><span class="kw">typeof</span> <span class="kw">function</span>(){}  <span class="cm">// "function" (technically an object)</span><br><br><span class="cm">// Better type checks</span><br>Array.<span class="fn">isArray</span>([])    <span class="cm">// true ✅</span><br>Number.<span class="fn">isNaN</span>(<span class="val">NaN</span>)    <span class="cm">// true ✅</span><br><span class="kw">null</span> === <span class="kw">null</span>        <span class="cm">// true ✅ (just use ===)</span><br><br><span class="cm">// typeof undeclared variable → no error!</span><br><span class="kw">typeof</span> doesNotExist  <span class="cm">// "undefined" (no ReferenceError)</span><br><span class="cm">// doesNotExist       → ❌ ReferenceError</span>`
+    },
+    automatic: {
+        title: 'Automatic Semicolons (ASI)',
+        desc: 'JavaScript has <strong>Automatic Semicolon Insertion (ASI)</strong> — the engine tries to insert semicolons where it thinks they should go. This can silently change the meaning of your code, especially with <code>return</code> statements.',
+        bullets: [
+            'JS inserts semicolons at line breaks when it finds a parsing error',
+            '<code>return</code> followed by a newline returns <code>undefined</code> — the value is never reached',
+            'Starting a line with <code>(</code>, <code>[</code>, or <code>\`</code> after an expression can cause unexpected concatenation',
+            'Always use semicolons explicitly or use a linter to be safe'
+        ],
+        code: `<span class="cm">// ASI can break your return!</span><br><span class="kw">function</span> <span class="fn">getUser</span>() {<br>  <span class="kw">return</span>      <span class="cm">// ← ASI inserts ; here!</span><br>  {<br>    name: <span class="str">"Alice"</span><br>  }<br>}<br><span class="fn">getUser</span>()  <span class="cm">// undefined 😱 (not the object!)</span><br><br><span class="cm">// The fix: open brace on same line</span><br><span class="kw">function</span> <span class="fn">getUser</span>() {<br>  <span class="kw">return</span> {     <span class="cm">// ✅ brace on same line</span><br>    name: <span class="str">"Alice"</span><br>  }<br>}<br><br><span class="cm">// Dangerous line starts</span><br><span class="kw">const</span> a = <span class="val">1</span><br>(<span class="fn">console</span>).<span class="fn">log</span>(a) <span class="cm">// ❌ TypeError: 1 is not a function</span><br><span class="cm">// JS reads it as: const a = 1(console).log(a)</span>`
+    },
+    this: {
+        title: 'The "this" Keyword',
+        desc: '<code>this</code> in JavaScript depends on <strong>how</strong> a function is called, not where it is defined. This makes <code>this</code> one of the most confusing concepts — it can change from call to call.',
+        bullets: [
+            'In a method: <code>this</code> = the object that owns the method',
+            'In a regular function: <code>this</code> = <code>window</code> (or <code>undefined</code> in strict mode)',
+            'Arrow functions: <code>this</code> = inherited from enclosing scope (lexical)',
+            '<code>.bind()</code>, <code>.call()</code>, <code>.apply()</code> can manually set <code>this</code>'
+        ],
+        code: `<span class="kw">const</span> user = {<br>  name: <span class="str">"Alice"</span>,<br>  greet() {<br>    <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>.name); <span class="cm">// "Alice" ✅</span><br>  }<br>};<br><br><span class="cm">// But extract the method...</span><br><span class="kw">const</span> fn = user.greet;<br><span class="fn">fn</span>();  <span class="cm">// undefined 😱 (this = window now)</span><br><br><span class="cm">// Arrow functions inherit this</span><br><span class="kw">const</span> team = {<br>  name: <span class="str">"JS Team"</span>,<br>  members: [<span class="str">"A"</span>, <span class="str">"B"</span>],<br>  show() {<br>    <span class="kw">this</span>.members.<span class="fn">forEach</span>(m =&gt; {<br>      <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>.name, m); <span class="cm">// ✅ arrow inherits this</span><br>    });<br>  }<br>};`
+    }
+};
+
+export const weirdQuirks = [
+    {
+        icon: '🍌',
+        title: '"ba" + + "a" + "a"',
+        desc: 'The unary + tries to convert "a" to a number, gets NaN, then string concatenation takes over.',
+        code: `<span class="str">"ba"</span> + + <span class="str">"a"</span> + <span class="str">"a"</span>`,
+        result: '"baNaNa"',
+        explanation: 'The + before "a" is unary plus → NaN → "ba" + "NaN" + "a" = "baNaNa" 🍌'
+    },
+    {
+        icon: '🔢',
+        title: '[] == ![]',
+        desc: 'An empty array equals its own negation. Both sides coerce to 0 through different paths.',
+        code: `[] <span class="op">==</span> ![]`,
+        result: 'true',
+        explanation: '![] → false → 0, [] → "" → 0. So 0 == 0 → true'
+    },
+    {
+        icon: '➕',
+        title: '++[[]][+[]]+[+[]]',
+        desc: 'A valid expression that evaluates to "10" using only brackets and plus signs.',
+        code: `++[[]][+[]] + [+[]]`,
+        result: '"10"',
+        explanation: '+[] = 0, [[]][0] = [], ++[] = 1, [0] = "0" → "1" + "0" = "10"'
+    },
+    {
+        icon: '🔄',
+        title: '[] + {} vs {} + []',
+        desc: 'Order matters! The engine parses these expressions completely differently.',
+        code: `[] + {}  <span class="cm">// "[object Object]"</span>\n{} + []  <span class="cm">// 0</span>`,
+        result: 'Different!',
+        explanation: '[] + {} → string concat. {} + [] → {} is parsed as empty block, then +[] = 0'
+    },
+    {
+        icon: '🧮',
+        title: '0.1 + 0.2',
+        desc: 'The classic floating-point precision problem inherited from IEEE 754.',
+        code: `<span class="val">0.1</span> + <span class="val">0.2</span>`,
+        result: '0.30000000000000004',
+        explanation: 'Binary floating-point cannot exactly represent 0.1 or 0.2. Use toFixed() or Math.round().'
+    },
+    {
+        icon: '💀',
+        title: 'typeof null',
+        desc: 'The most famous bug in JavaScript — null is not an object, but typeof says it is.',
+        code: `<span class="kw">typeof</span> <span class="kw">null</span>`,
+        result: '"object"',
+        explanation: 'A bug from 1995. Null\'s internal type tag was 0, same as objects. Cannot be fixed without breaking the web.'
+    },
+    {
+        icon: '🤹',
+        title: 'true + true + true',
+        desc: 'Boolean addition: true is coerced to 1, so adding booleans gives you math.',
+        code: `<span class="kw">true</span> + <span class="kw">true</span> + <span class="kw">true</span>`,
+        result: '3',
+        explanation: 'true → 1. So 1 + 1 + 1 = 3. Similarly, false → 0.'
+    },
+    {
+        icon: '🪄',
+        title: 'Math.max() < Math.min()',
+        desc: 'With no arguments, max returns -Infinity and min returns Infinity.',
+        code: `Math.<span class="fn">max</span>() < Math.<span class="fn">min</span>()`,
+        result: 'true',
+        explanation: 'Math.max() = -Infinity (identity for max). Math.min() = Infinity (identity for min). -Infinity < Infinity = true.'
+    },
+    {
+        icon: '🎭',
+        title: '(!+[]+[]+![]).length',
+        desc: 'A chaotic expression that evaluates to a specific number through multiple coercions.',
+        code: `(!+[]+[]+![]).<span class="fn">length</span>`,
+        result: '9',
+        explanation: '!+[] = !0 = true, true+[] = "true", ![] = false → "true" + "false" = "truefalse" → length 9'
+    }
+];
+
 export const varPanels = {
     var: {
         title: 'var — The Old Way',

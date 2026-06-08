@@ -1,4 +1,4 @@
-import { typeData, fnPanels, condPanels, loopPanels, opPanels, opRefCards, mathPanels, mathMethods, mathConstants, varPanels } from './data.js';
+import { typeData, fnPanels, condPanels, loopPanels, opPanels, opRefCards, mathPanels, mathMethods, mathConstants, varPanels, weirdPanels, weirdQuirks } from './data.js';
 
 // ── Canvas Particle Background ──────────────────────────
 function initCanvas() {
@@ -438,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initOperators();
     initMath();
     initVariables();
+    initWeirdness();
 });
 
 // ── Operators Section ───────────────────────────────────
@@ -740,4 +741,94 @@ function initVariables() {
             out.innerHTML = `<span style="color:#ef4444">❌ ${err.message}</span>`;
         }
     });
+}
+
+// ── JS Weirdness Section ──────────────────────────────────
+function initWeirdness() {
+    const weirdContent = document.getElementById('weird-content');
+    const quirksGrid = document.getElementById('weird-quirks-grid');
+
+    // ── Tab panels
+    function renderWeirdPanel(key) {
+        const p = weirdPanels[key];
+        weirdContent.innerHTML = `
+            <div class="fn-panel active">
+                <div class="fn-desc">
+                    <h3>${p.title}</h3>
+                    <p>${p.desc}</p>
+                    <ul>${p.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+                </div>
+                <div class="fn-code-block"><code>${p.code}</code></div>
+            </div>`;
+    }
+    renderWeirdPanel('coercion');
+
+    document.querySelectorAll('[data-wtab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('[data-wtab]').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderWeirdPanel(tab.dataset.wtab);
+        });
+    });
+
+    // ── Quirk Cards
+    quirksGrid.innerHTML = weirdQuirks.map((q, i) => `
+        <div class="quirk-card" data-quirk-idx="${i}">
+            <span class="quirk-icon">${q.icon}</span>
+            <h3>${q.title}</h3>
+            <p>${q.desc}</p>
+            <div class="inline-code"><code>${q.code}</code></div>
+            <div class="quirk-reveal" id="quirk-reveal-${i}">
+                <div class="quirk-result">
+                    <span class="quirk-result-label">Result:</span>
+                    <span class="quirk-result-value">${q.result}</span>
+                </div>
+                <p class="quirk-explanation">${q.explanation}</p>
+            </div>
+        </div>`).join('');
+
+    // Click to reveal
+    document.querySelectorAll('.quirk-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const idx = card.dataset.quirkIdx;
+            const reveal = document.getElementById(`quirk-reveal-${idx}`);
+            card.classList.toggle('revealed');
+            reveal.classList.toggle('show');
+        });
+    });
+
+    // ── Quick try buttons
+    document.querySelectorAll('.weird-quick').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const expr = btn.dataset.expr;
+            document.getElementById('weird-sandbox').value = expr;
+            runWeirdSandbox(expr);
+        });
+    });
+
+    // ── Sandbox
+    function runWeirdSandbox(codeOverride) {
+        const code = codeOverride || document.getElementById('weird-sandbox').value;
+        const out = document.getElementById('weird-output');
+        const logs = [];
+        const origLog = console.log;
+        console.log = (...args) => logs.push(args.map(a => {
+            try { return JSON.stringify(a) ?? String(a); } catch { return String(a); }
+        }).join(' '));
+        try {
+            const result = eval(code);
+            console.log = origLog;
+            const resultStr = result !== undefined ? (JSON.stringify(result) ?? String(result)) : undefined;
+            const typeStr = typeof result;
+            out.innerHTML = [
+                ...logs.map(l => `<span style="color:var(--muted)">log: </span><span style="color:var(--a5)">${l}</span>`),
+                resultStr !== undefined ? `<span style="color:var(--muted)">→ </span><span style="color:var(--a1);font-size:1.15rem;font-weight:800">${resultStr}</span>  <span style="color:var(--muted);font-size:.8rem">(typeof: "${typeStr}")</span>` : ''
+            ].filter(Boolean).join('<br>') || '<span class="output-placeholder">// No output</span>';
+        } catch (err) {
+            console.log = origLog;
+            out.innerHTML = `<span style="color:#ef4444">❌ ${err.message}</span>`;
+        }
+    }
+
+    document.getElementById('weird-run').addEventListener('click', () => runWeirdSandbox());
 }

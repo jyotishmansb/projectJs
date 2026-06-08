@@ -1845,3 +1845,91 @@ body {
     padding: 0.25rem;
   }
 }
+
+/* ── JS WEIRDNESS SECTION ── */
+.quirk-card {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.quirk-card::after {
+  content: "👆 Click to reveal";
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.quirk-card.revealed::after {
+  content: "✨ Revealed!";
+  color: var(--a1);
+  opacity: 0.8;
+}
+
+.quirk-reveal {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+.quirk-reveal.show {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+.quirk-result {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.quirk-result-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.quirk-result-value {
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--a1), var(--a4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.quirk-explanation {
+  font-size: 0.82rem;
+  color: var(--a5);
+  line-height: 1.6;
+  font-style: italic;
+  padding-left: 0.25rem;
+  border-left: 2px solid rgba(16, 185, 129, 0.3);
+  padding-left: 0.75rem;
+}
+
+.quirk-card.revealed {
+  border-color: var(--border-bright);
+  background: var(--card-hover);
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.08);
+}
+
+.weird-quick-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.type-info-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
